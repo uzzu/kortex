@@ -30,6 +30,6 @@ implementation("com.uzzu.github.cortex:cortex:0.1.0")
 
 ## License
 
-[MIT License](LICENCE.txt)
+[Apache 2.0 license](LICENSE.txt)
 
 

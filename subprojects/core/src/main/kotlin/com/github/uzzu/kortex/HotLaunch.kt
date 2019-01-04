@@ -1,3 +1,7 @@
+/**
+ * Copyright 2019 Hirokazu Uzu. Use of this source code is governed by the Apache 2.0 license.
+ */
+
 package com.github.uzzu.kortex
 
 import kotlinx.coroutines.CoroutineScope
@@ -7,6 +11,9 @@ import kotlinx.coroutines.launch
 import kotlin.coroutines.CoroutineContext
 import kotlin.coroutines.EmptyCoroutineContext
 
+/**
+ * Coroutine context element by using CoroutineScope#launchHot
+ */
 interface HotLaunch : CoroutineContext.Element {
     override val key: CoroutineContext.Key<*> get() = Key
 
@@ -15,8 +22,21 @@ interface HotLaunch : CoroutineContext.Element {
     val map: MutableMap<String, Job>
 }
 
+/**
+ * Create a new HotLaunch object
+ * @return A new HotLaunch object
+ */
 fun hotLaunch(map: MutableMap<String, Job> = mutableMapOf()): HotLaunch = HotLaunchImpl(map)
 
+/**
+ * Hot-launch coroutine by unique key
+ * @param   key unique key to use hot-invoke a coroutine.
+ * @param   context to use CoroutineScope#launch
+ * @param   start to use CoroutineScope#launch
+ * @param   block to use CoroutineScope#launch
+ * @return  Same job if a coroutine was reused
+ * @throws  IllegalArgumentException if coroutineContext[HotLaunch] was not set.
+ */
 fun CoroutineScope.launchHot(
     key: String,
     context: CoroutineContext = EmptyCoroutineContext,
