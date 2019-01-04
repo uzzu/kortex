@@ -15,7 +15,7 @@ interface HotLaunch : CoroutineContext.Element {
     val map: MutableMap<String, Job>
 }
 
-fun hotLaunch(): HotLaunch = HotLaunchImpl()
+fun hotLaunch(map: MutableMap<String, Job> = mutableMapOf()): HotLaunch = HotLaunchImpl(map)
 
 fun CoroutineScope.launchHot(
     key: String,
@@ -42,6 +42,6 @@ fun CoroutineScope.launchHot(
     }
 }
 
-private class HotLaunchImpl : HotLaunch {
-    override val map: MutableMap<String, Job> = mutableMapOf()
+private class HotLaunchImpl(map: MutableMap<String, Job>) : HotLaunch {
+    override val map: MutableMap<String, Job> = map
 }

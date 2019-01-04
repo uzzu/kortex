@@ -16,7 +16,11 @@ interface HotInvocation : CoroutineContext.Element {
     val map: MutableMap<String, BroadcastChannel<*>>
 }
 
-fun hotInvocation(): HotInvocation = HotInvocationImpl()
+fun hotInvocation(
+    mutex: Mutex = Mutex(),
+    map: MutableMap<String, BroadcastChannel<*>> = mutableMapOf()
+): HotInvocation =
+    HotInvocationImpl(mutex, map)
 
 suspend fun <T> CoroutineScope.withHot(key: String, block: suspend () -> T): T {
     val invocation = requireNotNull(coroutineContext[HotInvocation]) {
@@ -30,7 +34,7 @@ suspend fun <T> CoroutineScope.withHot(key: String, block: suspend () -> T): T {
             val cached = map[key] as BroadcastChannel<T>
             return@withLock cached.openSubscription()
         }
-       
+
         map.remove(key)
         @Suppress("unchecked_cast")
         val created = map.getOrPut(key) {
@@ -46,7 +50,10 @@ suspend fun <T> CoroutineScope.withHot(key: String, block: suspend () -> T): T {
     }.receive()
 }
 
-private class HotInvocationImpl : HotInvocation {
-    override val mutex: Mutex = Mutex()
-    override val map: MutableMap<String, BroadcastChannel<*>> = mutableMapOf()
+private class HotInvocationImpl(
+    mutex: Mutex,
+    map: MutableMap<String, BroadcastChannel<*>>
+) : HotInvocation {
+    override val mutex: Mutex = mutex
+    override val map: MutableMap<String, BroadcastChannel<*>> = map
 }
