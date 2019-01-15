@@ -1,5 +1,4 @@
 import com.jfrog.bintray.gradle.BintrayExtension
-import org.jetbrains.kotlin.backend.common.onlyIf
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 evaluationDependsOn(":core-common")
