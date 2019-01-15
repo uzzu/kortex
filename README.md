@@ -16,7 +16,7 @@ Kotlin 1.3.+
 repositories {
     jcenter()
     // If you can't download package, please add.
-    maven { url = "https://dl.bintray.com/uzzu/maven/" }
+    maven(url = "https://dl.bintray.com/uzzu/maven/")
 }
 ```
 
