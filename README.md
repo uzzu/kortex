@@ -1,10 +1,10 @@
 # Kortex
 
+common | jvm
+--- | --- 
+[ ![Download](https://api.bintray.com/packages/uzzu/maven/kortex-common/images/download.svg) ](https://bintray.com/uzzu/maven/kortex-common/_latestVersion) | [ ![Download](https://api.bintray.com/packages/uzzu/maven/kortex-jvm/images/download.svg) ](https://bintray.com/uzzu/maven/kortex-jvm/_latestVersion)
+
 Kotlin Coroutines helpers
-
-common: [ ![Download](https://api.bintray.com/packages/uzzu/maven/kortex-common/images/download.svg) ](https://bintray.com/uzzu/maven/kortex-common/_latestVersion)
-
-jvm: [ ![Download](https://api.bintray.com/packages/uzzu/maven/kortex-jvm/images/download.svg) ](https://bintray.com/uzzu/maven/kortex-jvm/_latestVersion)
 
 ## Requirements
 
