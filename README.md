@@ -1,5 +1,10 @@
 # Kortex
+
 Kotlin Coroutines helpers
+
+common: [ ![Download](https://api.bintray.com/packages/uzzu/maven/kortex-common/images/download.svg) ](https://bintray.com/uzzu/maven/kortex-common/_latestVersion)
+
+jvm: [ ![Download](https://api.bintray.com/packages/uzzu/maven/kortex-jvm/images/download.svg) ](https://bintray.com/uzzu/maven/kortex-jvm/_latestVersion)
 
 ## Requirements
 
@@ -10,11 +15,17 @@ Kotlin 1.3.+
 ```kotlin
 repositories {
     jcenter()
+    // If you can't download package, please add.
+    maven { url = "https://dl.bintray.com/uzzu/maven/" }
 }
 ```
 
 ```kotlin
-implementation("com.uzzu.github.cortex:cortex:0.1.0")
+// common project
+implementation("com.github.uzzu.kortex:kortex-common:0.1.0")
+
+// jvm, and Android project
+implementation("com.github.uzzu.kortex:kortex-jvm:0.1.0")
 ```
 
 ## Features

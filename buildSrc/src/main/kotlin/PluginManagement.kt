@@ -22,6 +22,7 @@ object PluginsId {
     // misc
     const val ktlint = "org.jlleitschuh.gradle.ktlint"
     const val buildTimeTracker = "net.rdrei.android.buildtimetracker"
+    const val bintray = "com.jfrog.bintray"
 }
 
 object PluginClasspath {
@@ -32,6 +33,7 @@ private object PluginModules {
     const val kotlin = "org.jetbrains.kotlin:kotlin-gradle-plugin:${Versions.kotlin}"
     const val ktlint = "org.jlleitschuh.gradle:ktlint-gradle:${Versions.ktlintPlugin}"
     const val buildTimeTracker = "net.rdrei.android.buildtimetracker:gradle-plugin:${Versions.buildTimeTrackerPlugin}"
+    const val bintray = "com.jfrog.bintray.gradle:gradle-bintray-plugin:${Versions.bintray}"
 }
 
 fun Settings.applyPluginManagement() {
@@ -55,6 +57,9 @@ fun Settings.applyPluginManagement() {
                     }
                     PluginsId.buildTimeTracker -> {
                         useModule(PluginModules.buildTimeTracker)
+                    }
+                    PluginsId.bintray -> {
+                        useModule(PluginModules.bintray)
                     }
                 }
             }

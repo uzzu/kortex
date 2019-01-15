@@ -13,6 +13,7 @@ object Versions {
     const val nodeGradlePlugin = "1.2.0"
     const val androidGradlePlugin = "3.2.1"
     const val androidJunit5Plugin = "1.3.1.1"
+    const val bintray = "1.8.4"
 
     // Kotlin
     const val kotlin = "1.3.11"

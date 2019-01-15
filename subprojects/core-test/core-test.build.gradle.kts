@@ -5,7 +5,7 @@ plugins {
 }
 
 dependencies {
-    expectedBy(project(":core"))
+    expectedBy(project(":core-common"))
     implementation(Libs.kotlinStdlibJvm)
     implementation(Libs.coroutinesCoreJvm)
     junit5TestDependencies()
