@@ -35,7 +35,7 @@ implementation("com.github.uzzu.kortex:kortex-jvm:0.1.0")
 [See more examples](subprojects/core-test/src/test/kotlin/com/github/uzzu/kortex/HotLaunchJvmTest.kt)
 
 
-### hot-invocation for suspend function
+### hot-invocation for suspending function
 
 [See more examples](subprojects/core-test/src/test/kotlin/com/github/uzzu/kortex/HotInvocationJvmTest.kt)
 
