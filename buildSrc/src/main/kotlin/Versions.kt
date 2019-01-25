@@ -16,8 +16,8 @@ object Versions {
     const val bintray = "1.8.4"
 
     // Kotlin
-    const val kotlin = "1.3.11"
-    const val kotlinCoroutines = "1.1.0"
+    const val kotlin = "1.3.20"
+    const val kotlinCoroutines = "1.1.1"
 
     // node
     const val node = "8.9.3"
@@ -38,8 +38,8 @@ object Versions {
     const val junit5 = "5.3.2"
     const val junit5PlatformRunner = "1.3.1"
     const val androidJunit5InstrumentationTest = "0.2.2"
-    const val assertk = "0.12"
-    const val mockk = "1.8.13.kotlin13"
+    const val assertk = "0.13"
+    const val mockk = "1.9"
 
     // TestLibs for Android
     const val truth = "0.42"

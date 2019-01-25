@@ -4,8 +4,8 @@
 
 package com.github.uzzu.kortex
 
-import assertk.assert
 import assertk.assertAll
+import assertk.assertThat
 import assertk.assertions.isEqualTo
 import assertk.assertions.isInstanceOf
 import assertk.assertions.isNotNull
@@ -45,8 +45,8 @@ class HotInvocationJvmTest {
             it.join()
         }
         assertAll {
-            assert(results.size).isEqualTo(times)
-            assert(results.distinct().size).isEqualTo(1)
+            assertThat(results.size).isEqualTo(times)
+            assertThat(results.distinct().size).isEqualTo(1)
         }
     }
 
@@ -67,8 +67,8 @@ class HotInvocationJvmTest {
             it.join()
         }
         assertAll {
-            assert(results.size).isEqualTo(times)
-            assert(results.distinct().size).isEqualTo(times)
+            assertThat(results.size).isEqualTo(times)
+            assertThat(results.distinct().size).isEqualTo(times)
         }
     }
 
@@ -83,8 +83,8 @@ class HotInvocationJvmTest {
         }.join()
 
         assertAll {
-            assert(actual).isNotNull()
-            assert(actual).isInstanceOf(IllegalArgumentException::class)
+            assertThat(actual).isNotNull()
+            assertThat(actual).isInstanceOf(IllegalArgumentException::class)
         }
     }
 }

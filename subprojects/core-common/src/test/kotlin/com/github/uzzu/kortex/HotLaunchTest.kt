@@ -4,8 +4,8 @@
 
 package com.github.uzzu.kortex
 
-import assertk.assert
 import assertk.assertAll
+import assertk.assertThat
 import assertk.assertions.isEqualTo
 import assertk.assertions.isNull
 import kotlinx.coroutines.CoroutineScope
@@ -19,14 +19,14 @@ class HotLaunchTest {
         val hotLaunch = hotLaunch()
         val coroutineScope = CoroutineScope(hotLaunch)
         assertAll {
-            assert(coroutineScope.coroutineContext[HotLaunch]).isEqualTo(hotLaunch)
+            assertThat(coroutineScope.coroutineContext[HotLaunch]).isEqualTo(hotLaunch)
         }
     }
 
     @Test
     fun isNullIfNotSet() {
         assertAll {
-            assert(GlobalScope.coroutineContext[HotLaunch]).isNull()
+            assertThat(GlobalScope.coroutineContext[HotLaunch]).isNull()
         }
     }
 }
