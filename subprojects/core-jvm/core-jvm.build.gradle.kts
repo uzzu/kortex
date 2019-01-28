@@ -46,7 +46,7 @@ base {
 afterEvaluate {
     var sourceJar: Task? = null
     tasks {
-        sourceJar = createSourceJar(false, SourceJarProject(":core-common"))
+        sourceJar = createSourceJar(":core-common")
     }
 
     bintray {
