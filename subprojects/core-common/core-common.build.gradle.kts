@@ -30,14 +30,7 @@ base {
 afterEvaluate {
     var sourceJar: Task? = null
     tasks {
-        sourceJar = create("sourceJar", type = Jar::class) {
-            dependsOn("classes")
-            classifier = "sources"
-            setDuplicatesStrategy(DuplicatesStrategy.EXCLUDE)
-            from(sourceSets.getByName("main").withGroovyBuilder {
-                getProperty("kotlin")
-            })
-        }
+        sourceJar = createSourceJar()
         withType<Jar> {
             archiveName = publishingArtifactId
         }
