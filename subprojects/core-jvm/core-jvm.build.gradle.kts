@@ -46,19 +46,7 @@ base {
 afterEvaluate {
     var sourceJar: Task? = null
     tasks {
-        sourceJar = create("sourceJar", type = Jar::class) {
-            dependsOn("classes")
-            classifier = "sources"
-            setDuplicatesStrategy(DuplicatesStrategy.EXCLUDE)
-            val platformSrc = sourceSets.getByName("main").withGroovyBuilder {
-                getProperty("kotlin")
-            }
-            val commonSrc = project(":core-common").sourceSets.getByName("main").withGroovyBuilder {
-                getProperty("kotlin")
-            }
-            from(platformSrc)
-            from(commonSrc)
-        }
+        sourceJar = createSourceJar(false, SourceJarProject(":core-common"))
     }
 
     bintray {
