@@ -64,12 +64,6 @@ object Bintray {
 
 fun TaskContainerScope.createSourceJar(vararg includeProjectNames: String): Jar =
     create("sourceJar", Jar::class) {
-        val isAndroid = project.isAndroidProject
-        if (isAndroid) {
-            dependsOn("assemble")
-        } else {
-            dependsOn("classes")
-        }
         classifier = "sources"
         setDuplicatesStrategy(DuplicatesStrategy.EXCLUDE)
 
