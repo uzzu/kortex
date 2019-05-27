@@ -36,7 +36,7 @@ object TestLibs {
     const val kotlinReflect = "org.jetbrains.kotlin:kotlin-reflect:${Versions.kotlin}"
 
     // assertion
-    const val assertkCommon = "com.willowtreeapps.assertk:assertk-common:${Versions.assertk}"
+    const val assertkCommon = "com.willowtreeapps.assertk:assertk:${Versions.assertk}"
     const val assertkJvm = "com.willowtreeapps.assertk:assertk-jvm:${Versions.assertk}"
 
     // mock

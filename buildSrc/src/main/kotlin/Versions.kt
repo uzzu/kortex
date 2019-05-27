@@ -8,16 +8,16 @@ object AndroidSdk {
 @Suppress("unused")
 object Versions {
     // gradle plugins
-    const val ktlintPlugin = "6.3.1"
+    const val ktlintPlugin = "8.0.0"
     const val buildTimeTrackerPlugin = "0.11.1"
     const val nodeGradlePlugin = "1.2.0"
-    const val androidGradlePlugin = "3.2.1"
-    const val androidJunit5Plugin = "1.3.1.1"
+    const val androidGradlePlugin = "3.4.1"
+    const val androidJunit5Plugin = "1.4.2.0"
     const val bintray = "1.8.4"
 
     // Kotlin
-    const val kotlin = "1.3.20"
-    const val kotlinCoroutines = "1.1.1"
+    const val kotlin = "1.3.31"
+    const val kotlinCoroutines = "1.2.1"
 
     // node
     const val node = "8.9.3"
@@ -31,18 +31,18 @@ object Versions {
     const val timber = "4.7.1"
 
     // ExampleLibs for debug
-    const val hyperion = "0.9.24"
+    const val hyperion = "0.9.27"
     const val googleAutoService = "1.0-rc4"
 
     // TestLibs for JUnit
-    const val junit5 = "5.3.2"
-    const val junit5PlatformRunner = "1.3.1"
+    const val junit5 = "5.4.2"
+    const val junit5PlatformRunner = "1.4.2"
     const val androidJunit5InstrumentationTest = "0.2.2"
-    const val assertk = "0.13"
+    const val assertk = "0.16"
     const val mockk = "1.9"
 
     // TestLibs for Android
-    const val truth = "0.42"
+    const val truth = "0.44"
     const val androidTestCore = "1.0.0"
     const val androidTestRunner = "1.1.0"
     const val androidTestInstrumentation = "2.0.0"
