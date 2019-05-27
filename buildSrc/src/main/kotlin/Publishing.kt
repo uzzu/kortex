@@ -64,7 +64,7 @@ object Bintray {
 
 fun TaskContainerScope.createSourceJar(vararg includeProjectNames: String): Jar =
     create("sourceJar", Jar::class) {
-        classifier = "sources"
+        archiveClassifier.set("sources")
         setDuplicatesStrategy(DuplicatesStrategy.EXCLUDE)
 
         val targetSrc = project.mainSourceDirectorySet

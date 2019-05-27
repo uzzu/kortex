@@ -1,5 +1,4 @@
 applyPluginManagement()
-enableFeaturePreview("STABLE_PUBLISHING")
 enableFeaturePreview("GRADLE_METADATA")
 
 rootProject.name = "kortex"
