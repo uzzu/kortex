@@ -22,10 +22,10 @@ repositories {
 
 ```kotlin
 // common project
-implementation("com.github.uzzu.kortex:kortex-common:0.1.0")
+implementation("com.github.uzzu.kortex:kortex-common:0.1.2")
 
 // jvm, and Android project
-implementation("com.github.uzzu.kortex:kortex-jvm:0.1.0")
+implementation("com.github.uzzu.kortex:kortex-jvm:0.1.2")
 ```
 
 ## Features
