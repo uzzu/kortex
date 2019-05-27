@@ -12,7 +12,7 @@ import org.gradle.kotlin.dsl.create
 
 private const val majorVersion: Int = 0
 private const val minorVersion: Int = 1
-private val patchVersion = 1
+private val patchVersion = 2
 private const val coreModuleName = "core"
 
 val Project.publishingGroupId: String by lazy { "com.github.uzzu.kortex" }
