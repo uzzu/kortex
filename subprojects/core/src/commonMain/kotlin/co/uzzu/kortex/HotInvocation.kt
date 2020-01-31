@@ -1,10 +1,7 @@
-/**
- * Copyright 2019 Hirokazu Uzu. Use of this source code is governed by the Apache 2.0 license.
- */
-
-package com.github.uzzu.kortex
+package co.uzzu.kortex
 
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.channels.BroadcastChannel
 import kotlinx.coroutines.channels.broadcast
 import kotlinx.coroutines.sync.Mutex
@@ -14,12 +11,14 @@ import kotlin.coroutines.CoroutineContext
 /**
  * Coroutine context element by using CoroutineScope#withHot
  */
+@ExperimentalCoroutinesApi
 interface HotInvocation : CoroutineContext.Element {
     override val key: CoroutineContext.Key<*> get() = Key
 
     companion object Key : CoroutineContext.Key<HotInvocation>
 
     val mutex: Mutex
+
     val map: MutableMap<String, BroadcastChannel<*>>
 }
 
@@ -28,6 +27,7 @@ interface HotInvocation : CoroutineContext.Element {
  * @param mutex
  * @return A new HotInvocation object
  */
+@ExperimentalCoroutinesApi
 fun hotInvocation(
     mutex: Mutex = Mutex(),
     map: MutableMap<String, BroadcastChannel<*>> = mutableMapOf()
@@ -41,6 +41,8 @@ fun hotInvocation(
  * @return  same value if specified suspend function was reused
  * @throws  IllegalArgumentException if coroutineContext[HotInvocation] was not set.
  */
+@ExperimentalCoroutinesApi
+@Suppress("SuspendFunctionOnCoroutineScope")
 suspend fun <T> CoroutineScope.withHot(key: String, block: suspend () -> T): T {
     val invocation = requireNotNull(coroutineContext[HotInvocation]) {
         "Requires HotInvocation to call this function. Please add into your coroutineContext."
@@ -69,10 +71,8 @@ suspend fun <T> CoroutineScope.withHot(key: String, block: suspend () -> T): T {
     }.receive()
 }
 
+@ExperimentalCoroutinesApi
 private class HotInvocationImpl(
-    mutex: Mutex,
-    map: MutableMap<String, BroadcastChannel<*>>
-) : HotInvocation {
-    override val mutex: Mutex = mutex
-    override val map: MutableMap<String, BroadcastChannel<*>> = map
-}
+    override val mutex: Mutex,
+    override val map: MutableMap<String, BroadcastChannel<*>>
+) : HotInvocation

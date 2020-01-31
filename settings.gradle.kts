@@ -1,5 +1,11 @@
-applyPluginManagement()
-enableFeaturePreview("GRADLE_METADATA")
+pluginManagement {
+    repositories {
+        google()
+        mavenCentral()
+        maven(url = "https://plugins.gradle.org/m2/")
+        jcenter()
+    }
+}
 
 rootProject.name = "kortex"
 
@@ -11,9 +17,7 @@ fun Settings.includeSubProject(name: String) {
     project(":$name").buildFileName = "$name.build.gradle.kts"
 }
 
-includeSubProject("core-common")
-includeSubProject("core-jvm")
-includeSubProject("core-test")
+includeSubProject("core")
 
 // endregion
 

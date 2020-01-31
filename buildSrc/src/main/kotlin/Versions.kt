@@ -8,16 +8,16 @@ object AndroidSdk {
 @Suppress("unused")
 object Versions {
     // gradle plugins
-    const val ktlintPlugin = "8.0.0"
-    const val buildTimeTrackerPlugin = "0.11.1"
+    const val ktlintPlugin = "9.1.1"
+    const val buildTimeTrackerPlugin = "0.11.0"
     const val nodeGradlePlugin = "1.2.0"
-    const val androidGradlePlugin = "3.4.1"
+    const val androidGradlePlugin = "3.5.3"
     const val androidJunit5Plugin = "1.4.2.0"
     const val bintray = "1.8.4"
 
     // Kotlin
-    const val kotlin = "1.3.31"
-    const val kotlinCoroutines = "1.2.1"
+    const val kotlin = "1.3.61"
+    const val kotlinCoroutines = "1.3.3"
 
     // node
     const val node = "8.9.3"
@@ -39,7 +39,6 @@ object Versions {
     const val junit5PlatformRunner = "1.4.2"
     const val androidJunit5InstrumentationTest = "0.2.2"
     const val assertk = "0.16"
-    const val mockk = "1.9"
 
     // TestLibs for Android
     const val truth = "0.44"
