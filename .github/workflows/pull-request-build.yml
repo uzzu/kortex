@@ -19,5 +19,5 @@ jobs:
         uses: actions/upload-artifact@v1
         if: always()
         with:
-          name: build reports
+          name: build_reports
           path: subprojects/core/build/reports
