@@ -70,7 +70,12 @@ bintray {
     user = bintrayUser
     key = bintrayApiKey
     publish = false
-    setPublications(*Bintray.publications)
+    setPublications(
+        *publishing.publications
+            .withType<MavenPublication>()
+            .map { it.name }
+            .toTypedArray()
+    )
     pkg(delegateClosureOf<BintrayExtension.PackageConfig> {
         repo = Bintray.repo
         name = publishingArtifactIdBase
@@ -80,6 +85,7 @@ bintray {
         vcsUrl = Bintray.vcsUrl
         issueTrackerUrl = Bintray.issueTrackerUrl
         githubRepo = Bintray.githubRepo
+        githubReleaseNotesFile = Bintray.githubReleaseNoteFile
         setLabels(* Bintray.labels)
         setLicenses(*Bintray.licenses)
         version(delegateClosureOf<BintrayExtension.VersionConfig> {
@@ -95,46 +101,44 @@ afterEvaluate {
         }
 
         publications.withType<MavenPublication>().all {
-            publications.withType<MavenPublication>().all {
-                val publishingArtifactId = when (name) {
-                    "metadata" -> {
-                        "$publishingArtifactIdBase-common"
-                    }
-                    "kotlinMultiplatform" -> {
-                        publishingArtifactIdBase
-                    }
-                    "androidRelease" -> {
-                        "$publishingArtifactIdBase-android"
-                    }
-                    else -> {
-                        "$publishingArtifactIdBase-${CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_HYPHEN, name)}"
+            val publishingArtifactId = when (name) {
+                "metadata" -> {
+                    "$publishingArtifactIdBase-common"
+                }
+                "kotlinMultiplatform" -> {
+                    publishingArtifactIdBase
+                }
+                "androidRelease" -> {
+                    "$publishingArtifactIdBase-android"
+                }
+                else -> {
+                    "$publishingArtifactIdBase-${CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_HYPHEN, name)}"
+                }
+            }
+            groupId = publishingGroupId
+            artifactId = publishingArtifactId
+            version = publishingArtifactVersion
+            pom {
+                name.set(publishingArtifactId)
+                description.set(MavenPublications.description)
+                url.set(MavenPublications.url)
+                licenses {
+                    license {
+                        name.set(MavenPublications.license)
+                        url.set(MavenPublications.licenseUrl)
+                        distribution.set(MavenPublications.licenseDistribution)
                     }
                 }
-                groupId = publishingGroupId
-                artifactId = publishingArtifactId
-                version = publishingArtifactVersion
-                pom {
-                    name.set(publishingArtifactId)
-                    description.set(MavenPublications.description)
-                    url.set(MavenPublications.url)
-                    licenses {
-                        license {
-                            name.set(MavenPublications.license)
-                            url.set(MavenPublications.licenseUrl)
-                            distribution.set(MavenPublications.licenseDistribution)
-                        }
+                developers {
+                    developer {
+                        id.set(MavenPublications.developersId)
+                        name.set(MavenPublications.developersName)
+                        organization.set(MavenPublications.organization)
+                        organizationUrl.set(MavenPublications.organizationUrl)
                     }
-                    developers {
-                        developer {
-                            id.set(MavenPublications.developersId)
-                            name.set(MavenPublications.developersName)
-                            organization.set(MavenPublications.organization)
-                            organizationUrl.set(MavenPublications.organizationUrl)
-                        }
-                    }
-                    scm {
-                        url.set(MavenPublications.scmUrl)
-                    }
+                }
+                scm {
+                    url.set(MavenPublications.scmUrl)
                 }
             }
         }

@@ -20,7 +20,6 @@ val Project.publishingArtifactIdBase: String
     }
 
 object MavenPublications {
-    const val publicationName = "maven"
     const val description = "Coroutines techniques"
     const val url = "https://github.com/uzzu/kortex"
     const val license = "The Apache Software License, Version 2.0"
@@ -40,7 +39,6 @@ val Project.bintrayApiKey: String?
 
 object Bintray {
     const val mavenUrl = "https://dl.bintray.com/uzzu/maven"
-    val publications = arrayOf(MavenPublications.publicationName)
     const val repo = "maven"
     const val desc = MavenPublications.description
     const val userOrg = MavenPublications.organization
@@ -48,7 +46,8 @@ object Bintray {
     const val issueTrackerUrl = "https://github.com/uzzu/kortex/issues"
     const val vcsUrl = "https://github.com/uzzu/kortex.git"
     const val githubRepo = "uzzu/kortex"
+    const val githubReleaseNoteFile = "CHANGELOG.md"
     val licenses = arrayOf("Apache-2.0")
-    val labels = arrayOf("kotlin", "android")
+    val labels = arrayOf("Kotlin", "Android")
     val publicDownloadNumbers = true
 }
