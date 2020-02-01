@@ -60,6 +60,7 @@ tasks {
             )
         }
     }
+    // alias to allTests task (Kotlin MPP does not have test task)
     register("test") { dependsOn("allTests") }
 }
 
