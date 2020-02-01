@@ -35,10 +35,10 @@ object Versions {
     const val googleAutoService = "1.0-rc4"
 
     // TestLibs for JUnit
-    const val junit5 = "5.4.2"
-    const val junit5PlatformRunner = "1.4.2"
+    const val junit5 = "5.6.0"
+    const val junit5PlatformRunner = "1.6.0"
     const val androidJunit5InstrumentationTest = "0.2.2"
-    const val assertk = "0.16"
+    const val assertk = "0.21"
 
     // TestLibs for Android
     const val truth = "0.44"

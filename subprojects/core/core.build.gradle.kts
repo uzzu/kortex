@@ -36,11 +36,11 @@ kotlin {
 
         val jvmTest by getting {
             dependencies {
+                runtimeOnly(TestLibs.junit5Engine)
                 implementation(TestLibs.kotlinTestJunit5)
                 implementation(TestLibs.kotlinReflectJvm)
                 implementation(TestLibs.junit5)
                 implementation(TestLibs.junit5Param)
-                runtimeOnly(TestLibs.junit5Engine)
                 implementation(TestLibs.assertkJvm)
             }
         }
