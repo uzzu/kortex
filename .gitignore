@@ -87,6 +87,7 @@ obj/
 .idea/assetWizardSettings.xml
 .idea/artifacts
 .idea/jarRepositories.xml
+.idea/inspectionProfiles
 
 # OS-specific files
 .DS_Store
