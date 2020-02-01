@@ -1,21 +1,11 @@
-import org.jlleitschuh.gradle.ktlint.reporter.ReporterType
-
 buildscript {
-    repositories {
-        google()
-        mavenCentral()
-        maven(url = "https://plugins.gradle.org/m2/")
-        jcenter()
-    }
-    dependencies {
-        classpath(PluginClasspath.kotlin)
-    }
+    legacyBuildScriptClasspath()
 }
 
 plugins {
     base
-    id(PluginsId.ktlint)
-    id(PluginsId.buildTimeTracker)
+    ktlint
+    buildTimeTracker
 }
 
 allProjectsRepositories()
@@ -33,16 +23,17 @@ allprojects {
 
 subprojects {
     apply {
-        plugin(PluginsId.ktlint)
+        ktlint
     }
 
     ktlint {
         verbose.set(true)
         android.set(true)
         outputToConsole.set(true)
-        reporters.set(listOf(ReporterType.CHECKSTYLE))
+        reporters {
+            reporter(org.jlleitschuh.gradle.ktlint.reporter.ReporterType.CHECKSTYLE)
+        }
         ignoreFailures.set(true)
-        ruleSets.set(listOf())
     }
 }
 

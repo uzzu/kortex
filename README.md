@@ -22,25 +22,22 @@ repositories {
 
 ```kotlin
 // common project
-implementation("com.github.uzzu.kortex:kortex-common:0.1.2")
+implementation("co.uzzu.kortex:kortex-common:0.2.0")
 
 // jvm, and Android project
-implementation("com.github.uzzu.kortex:kortex-jvm:0.1.2")
+implementation("co.uzzu.kortex:kortex-jvm:0.2.0")
 ```
 
 ## Features
 
 ### hot-launching
 
-[See more examples](subprojects/core-test/src/test/kotlin/com/github/uzzu/kortex/HotLaunchJvmTest.kt)
-
+[See more examples](subprojects/core/src/jvmTest/kotlin/com/github/uzzu/kortex/HotLaunchJvmTest.kt)
 
 ### hot-invocation for suspending function
 
-[See more examples](subprojects/core-test/src/test/kotlin/com/github/uzzu/kortex/HotInvocationJvmTest.kt)
+[See more examples](subprojects/core/src/jvmTest/kotlin/com/github/uzzu/kortex/HotInvocationJvmTest.kt)
 
 ## License
 
 [Apache 2.0 license](LICENSE.txt)
-
-

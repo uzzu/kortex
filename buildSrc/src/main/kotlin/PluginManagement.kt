@@ -1,12 +1,10 @@
-import org.gradle.api.initialization.Settings
-import org.gradle.kotlin.dsl.maven
+import org.gradle.api.plugins.ObjectConfigurationAction
+import org.gradle.kotlin.dsl.ScriptHandlerScope
+import org.gradle.kotlin.dsl.version
+import org.gradle.plugin.use.PluginDependenciesSpec
 
 @Suppress("unused")
 object PluginsId {
-    // Kotlin MPP
-    const val kotlinMultiPlatformCommon = "org.jetbrains.kotlin.platform.common"
-    const val kotlinMultiPlatformJvm = "org.jetbrains.kotlin.platform.jvm"
-
     // Js
     const val nodeGradle = "com.moowork.node"
 
@@ -18,51 +16,37 @@ object PluginsId {
     // Android Kotlin
     const val kotlinAndroid = "kotlin-android"
     const val kotlinAndroidExtensions = "kotlin-android-extensions"
-
-    // misc
-    const val ktlint = "org.jlleitschuh.gradle.ktlint"
-    const val buildTimeTracker = "net.rdrei.android.buildtimetracker"
-    const val bintray = "com.jfrog.bintray"
 }
 
-object PluginClasspath {
-    const val kotlin = PluginModules.kotlin
-}
+// region kotlin
 
-private object PluginModules {
-    const val kotlin = "org.jetbrains.kotlin:kotlin-gradle-plugin:${Versions.kotlin}"
-    const val ktlint = "org.jlleitschuh.gradle:ktlint-gradle:${Versions.ktlintPlugin}"
-    const val buildTimeTracker = "net.rdrei.android.buildtimetracker:gradle-plugin:${Versions.buildTimeTrackerPlugin}"
-    const val bintray = "com.jfrog.bintray.gradle:gradle-bintray-plugin:${Versions.bintray}"
-}
-
-fun Settings.applyPluginManagement() {
-    pluginManagement {
-        repositories {
-            google()
-            mavenCentral()
-            maven(url = "https://plugins.gradle.org/m2/")
-            jcenter()
-        }
-
-        resolutionStrategy {
-            eachPlugin {
-                when (requested.id.id) {
-                    PluginsId.kotlinMultiPlatformCommon,
-                    PluginsId.kotlinMultiPlatformJvm -> {
-                        useModule(PluginModules.kotlin)
-                    }
-                    PluginsId.ktlint -> {
-                        useModule(PluginModules.ktlint)
-                    }
-                    PluginsId.buildTimeTracker -> {
-                        useModule(PluginModules.buildTimeTracker)
-                    }
-                    PluginsId.bintray -> {
-                        useModule(PluginModules.bintray)
-                    }
-                }
-            }
-        }
+fun ScriptHandlerScope.legacyBuildScriptClasspath() {
+    dependencies {
+        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:${Versions.kotlin}")
     }
 }
+
+val PluginDependenciesSpec.kotlinMultiPlatform
+    get() = id("org.jetbrains.kotlin.multiplatform") // version Versions.kotlin // for legacy
+
+// endregion
+
+// region ktlint
+
+const val ktlintPluginId = "org.jlleitschuh.gradle.ktlint"
+val PluginDependenciesSpec.ktlint
+    get() = id(ktlintPluginId) version Versions.ktlintPlugin
+val ObjectConfigurationAction.ktlint
+    get() = plugin(ktlintPluginId)
+
+// endregion
+
+// region general
+
+val PluginDependenciesSpec.buildTimeTracker
+    get() = id("net.rdrei.android.buildtimetracker") version Versions.buildTimeTrackerPlugin
+
+val PluginDependenciesSpec.bintray
+    get() = id("com.jfrog.bintray") version Versions.bintray
+
+// endregion

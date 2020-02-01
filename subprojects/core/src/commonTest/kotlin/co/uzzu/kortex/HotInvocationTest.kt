@@ -2,7 +2,7 @@
  * Copyright 2019 Hirokazu Uzu. Use of this source code is governed by the Apache 2.0 license.
  */
 
-package com.github.uzzu.kortex
+package co.uzzu.kortex
 
 import assertk.assertAll
 import assertk.assertThat
@@ -12,21 +12,21 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.GlobalScope
 import kotlin.test.Test
 
-class HotLaunchTest {
+class HotInvocationTest {
 
     @Test
     fun createContext() {
-        val hotLaunch = hotLaunch()
-        val coroutineScope = CoroutineScope(hotLaunch)
+        val hotInvocation = hotInvocation()
+        val coroutineScope = CoroutineScope(hotInvocation)
         assertAll {
-            assertThat(coroutineScope.coroutineContext[HotLaunch]).isEqualTo(hotLaunch)
+            assertThat(coroutineScope.coroutineContext[HotInvocation]).isEqualTo(hotInvocation)
         }
     }
 
     @Test
     fun isNullIfNotSet() {
         assertAll {
-            assertThat(GlobalScope.coroutineContext[HotLaunch]).isNull()
+            assertThat(GlobalScope.coroutineContext[HotInvocation]).isNull()
         }
     }
 }

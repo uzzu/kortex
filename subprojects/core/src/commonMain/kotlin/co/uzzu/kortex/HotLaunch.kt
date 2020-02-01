@@ -1,8 +1,4 @@
-/**
- * Copyright 2019 Hirokazu Uzu. Use of this source code is governed by the Apache 2.0 license.
- */
-
-package com.github.uzzu.kortex
+package co.uzzu.kortex
 
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.CoroutineStart
@@ -62,6 +58,6 @@ fun CoroutineScope.launchHot(
     }
 }
 
-private class HotLaunchImpl(map: MutableMap<String, Job>) : HotLaunch {
-    override val map: MutableMap<String, Job> = map
-}
+private class HotLaunchImpl(
+    override val map: MutableMap<String, Job>
+) : HotLaunch
