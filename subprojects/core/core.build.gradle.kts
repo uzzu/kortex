@@ -1,5 +1,6 @@
 import com.google.common.base.CaseFormat
 import com.jfrog.bintray.gradle.BintrayExtension
+import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
 import org.jetbrains.kotlin.gradle.tasks.Kotlin2JsCompile
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
@@ -24,6 +25,10 @@ kotlin {
             }
         }
     }
+
+    iosArm32()
+    iosArm64()
+    iosX64()
 
     sourceSets {
         val commonMain by getting {
@@ -67,6 +72,28 @@ kotlin {
                 implementation(TestLibs.kotlinTestJs)
             }
         }
+
+        val nativeMain by creating {
+            dependsOn(commonMain)
+            dependencies {
+                implementation(Libs.coroutinesCoreNative)
+            }
+        }
+        val nativeTest by creating {
+            dependsOn(commonTest)
+        }
+        val iosArm32Main by getting
+        val iosArm32Test by getting
+        val iosArm64Main by getting
+        val iosArm64Test by getting
+        val iosX64Main by getting
+        val iosX64Test by getting
+        configure(listOf(iosArm32Main, iosArm64Main, iosX64Main)) {
+            dependsOn(nativeMain)
+        }
+        configure(listOf(iosArm32Test, iosArm64Test, iosX64Test)) {
+            dependsOn(nativeTest)
+        }
     }
 }
 
@@ -83,6 +110,23 @@ tasks {
             )
         }
     }
+
+    val iosTest = register("iosTest") {
+        val device = project.findProperty("iosDevice")?.toString() ?: "iPhone 8"
+        val testExecutable = kotlin.targets.getByName<KotlinNativeTarget>("iosX64").binaries.getTest("DEBUG")
+        dependsOn(testExecutable.linkTaskName)
+
+        group = JavaBasePlugin.VERIFICATION_GROUP
+        description = "Runs tests for target 'ios' on an iOS simulator"
+
+        doLast {
+            exec {
+                println(testExecutable.outputFile.absolutePath)
+                commandLine("xcrun", "simctl", "spawn", "--standalone", device, testExecutable.outputFile.absolutePath)
+            }
+        }
+    }
+
     // alias to allTests task (Kotlin MPP does not have test task)
     register("test") { dependsOn("allTests") }
 }
