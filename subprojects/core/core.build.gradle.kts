@@ -30,6 +30,7 @@ kotlin {
     iosArm32()
     iosArm64()
     iosX64()
+    macosX64()
 
     sourceSets {
         val commonMain by getting {
@@ -91,10 +92,12 @@ kotlin {
         val iosArm64Test by getting
         val iosX64Main by getting
         val iosX64Test by getting
-        configure(listOf(linuxX64Main, iosArm32Main, iosArm64Main, iosX64Main)) {
+        val macosX64Main by getting
+        val macosX64Test by getting
+        configure(listOf(linuxX64Main, iosArm32Main, iosArm64Main, iosX64Main, macosX64Main)) {
             dependsOn(nativeMain)
         }
-        configure(listOf(linuxX64Test, iosArm32Test, iosArm64Test, iosX64Test)) {
+        configure(listOf(linuxX64Test, iosArm32Test, iosArm64Test, iosX64Test, macosX64Test)) {
             dependsOn(nativeTest)
         }
     }
