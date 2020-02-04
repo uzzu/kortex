@@ -26,6 +26,7 @@ kotlin {
         }
     }
 
+    linuxX64()
     iosArm32()
     iosArm64()
     iosX64()
@@ -82,16 +83,18 @@ kotlin {
         val nativeTest by creating {
             dependsOn(commonTest)
         }
+        val linuxX64Main by getting
+        val linuxX64Test by getting
         val iosArm32Main by getting
         val iosArm32Test by getting
         val iosArm64Main by getting
         val iosArm64Test by getting
         val iosX64Main by getting
         val iosX64Test by getting
-        configure(listOf(iosArm32Main, iosArm64Main, iosX64Main)) {
+        configure(listOf(linuxX64Main, iosArm32Main, iosArm64Main, iosX64Main)) {
             dependsOn(nativeMain)
         }
-        configure(listOf(iosArm32Test, iosArm64Test, iosX64Test)) {
+        configure(listOf(linuxX64Test, iosArm32Test, iosArm64Test, iosX64Test)) {
             dependsOn(nativeTest)
         }
     }
