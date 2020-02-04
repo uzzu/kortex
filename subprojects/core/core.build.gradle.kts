@@ -1,5 +1,6 @@
 import com.google.common.base.CaseFormat
 import com.jfrog.bintray.gradle.BintrayExtension
+import org.jetbrains.kotlin.gradle.tasks.Kotlin2JsCompile
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
@@ -10,6 +11,19 @@ plugins {
 
 kotlin {
     jvm()
+    js {
+        browser()
+        nodejs()
+        compilations.all {
+            tasks.withType<Kotlin2JsCompile> {
+                kotlinOptions {
+                    moduleKind = "umd"
+                    sourceMap = true
+                    metaInfo = true
+                }
+            }
+        }
+    }
 
     sourceSets {
         val commonMain by getting {
@@ -18,12 +32,11 @@ kotlin {
                 implementation(Libs.coroutinesCoreCommon)
             }
         }
-
         val commonTest by getting {
             dependencies {
                 implementation(TestLibs.kotlinTestCommon)
                 implementation(TestLibs.kotlinTestAnnotationsCommon)
-                implementation(TestLibs.assertkCommon)
+                implementation(TestLibs.assertk)
             }
         }
 
@@ -33,7 +46,6 @@ kotlin {
                 implementation(Libs.coroutinesCoreJvm)
             }
         }
-
         val jvmTest by getting {
             dependencies {
                 runtimeOnly(TestLibs.junit5Engine)
@@ -41,7 +53,18 @@ kotlin {
                 implementation(TestLibs.kotlinReflectJvm)
                 implementation(TestLibs.junit5)
                 implementation(TestLibs.junit5Param)
-                implementation(TestLibs.assertkJvm)
+            }
+        }
+
+        val jsMain by getting {
+            dependencies {
+                implementation(Libs.kotlinStdlibJs)
+                implementation(Libs.coroutinesCoreJs)
+            }
+        }
+        val jsTest by getting {
+            dependencies {
+                implementation(TestLibs.kotlinTestJs)
             }
         }
     }
@@ -102,11 +125,11 @@ afterEvaluate {
 
         publications.withType<MavenPublication>().all {
             val publishingArtifactId = when (name) {
+                "kotlinMultiplatform" -> {
+                    "$publishingArtifactIdBase"
+                }
                 "metadata" -> {
                     "$publishingArtifactIdBase-common"
-                }
-                "kotlinMultiplatform" -> {
-                    publishingArtifactIdBase
                 }
                 "androidRelease" -> {
                     "$publishingArtifactIdBase-android"
