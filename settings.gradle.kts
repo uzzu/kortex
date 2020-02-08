@@ -17,6 +17,7 @@ fun Settings.includeSubProject(name: String) {
     project(":$name").buildFileName = "$name.build.gradle.kts"
 }
 
+includeSubProject("testing")
 includeSubProject("core")
 
 // endregion
