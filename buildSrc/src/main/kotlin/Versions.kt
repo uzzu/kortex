@@ -17,7 +17,7 @@ object Versions {
 
     // Kotlin
     const val kotlin = "1.3.61"
-    const val kotlinCoroutines = "1.3.3"
+    const val kotlinCoroutines = "1.3.3-native-mt"
 
     // node
     const val node = "8.9.3"

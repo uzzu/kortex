@@ -4,8 +4,8 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.channels.BroadcastChannel
 import kotlinx.coroutines.channels.broadcast
-import kotlinx.coroutines.sync.Mutex
-import kotlinx.coroutines.sync.withLock
+import kotlinx.coroutines.sync.Semaphore
+import kotlinx.coroutines.sync.withPermit
 import kotlin.coroutines.CoroutineContext
 
 /**
@@ -17,22 +17,22 @@ interface HotInvocation : CoroutineContext.Element {
 
     companion object Key : CoroutineContext.Key<HotInvocation>
 
-    val mutex: Mutex
+    val semaphore: Semaphore
 
     val map: MutableMap<String, BroadcastChannel<*>>
 }
 
 /**
  * Create a new HotInvocation object
- * @param mutex
+ * @param semaphore
  * @return A new HotInvocation object
  */
 @ExperimentalCoroutinesApi
 fun hotInvocation(
-    mutex: Mutex = Mutex(),
+    semaphore: Semaphore = Semaphore(1),
     map: MutableMap<String, BroadcastChannel<*>> = mutableMapOf()
 ): HotInvocation =
-    HotInvocationImpl(mutex, map)
+    HotInvocationImpl(semaphore, map)
 
 /**
  * Hot-invoke specified suspending function by unique key
@@ -47,13 +47,13 @@ suspend fun <T> CoroutineScope.withHot(key: String, block: suspend () -> T): T {
     val invocation = requireNotNull(coroutineContext[HotInvocation]) {
         "Requires HotInvocation to call this function. Please add into your coroutineContext."
     }
-    val mutex = invocation.mutex
+    val semaphore = invocation.semaphore
     val map = invocation.map
-    return mutex.withLock {
+    return semaphore.withPermit {
         if (map.containsKey(key) && !requireNotNull(map[key]).isClosedForSend) {
             @Suppress("unchecked_cast")
             val cached = map[key] as BroadcastChannel<T>
-            return@withLock cached.openSubscription()
+            return@withPermit cached.openSubscription()
         }
 
         map.remove(key)
@@ -61,7 +61,7 @@ suspend fun <T> CoroutineScope.withHot(key: String, block: suspend () -> T): T {
         val created = map.getOrPut(key) {
             broadcast {
                 val result = block()
-                mutex.withLock {
+                semaphore.withPermit {
                     send(result)
                     map.remove(key)
                 }
@@ -73,6 +73,10 @@ suspend fun <T> CoroutineScope.withHot(key: String, block: suspend () -> T): T {
 
 @ExperimentalCoroutinesApi
 private class HotInvocationImpl(
-    override val mutex: Mutex,
+    override val semaphore: Semaphore,
     override val map: MutableMap<String, BroadcastChannel<*>>
-) : HotInvocation
+) : HotInvocation {
+    init {
+//        ensureNeverFrozen()
+    }
+}

@@ -43,6 +43,7 @@ kotlin {
                 implementation(TestLibs.kotlinTestCommon)
                 implementation(TestLibs.kotlinTestAnnotationsCommon)
                 implementation(TestLibs.assertk)
+                implementation(project(":testing"))
             }
         }
 
