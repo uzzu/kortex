@@ -85,17 +85,33 @@ kotlin {
         }
         val linuxX64Main by getting
         val linuxX64Test by getting
+        configure(listOf(linuxX64Main)) {
+            dependsOn(nativeMain)
+        }
+        configure(listOf(linuxX64Test)) {
+            dependsOn(nativeTest)
+        }
+
+        val darwinMain by creating {
+            dependsOn(commonMain)
+            dependencies {
+                implementation(Libs.coroutinesCoreNative)
+            }
+        }
+        val darwinTest by creating {
+            dependsOn(commonTest)
+        }
         val iosArm64Main by getting
         val iosArm64Test by getting
         val iosX64Main by getting
         val iosX64Test by getting
         val macosX64Main by getting
         val macosX64Test by getting
-        configure(listOf(linuxX64Main, iosArm64Main, iosX64Main, macosX64Main)) {
-            dependsOn(nativeMain)
+        configure(listOf(iosArm64Main, iosX64Main, macosX64Main)) {
+            dependsOn(darwinMain)
         }
-        configure(listOf(linuxX64Test, iosArm64Test, iosX64Test, macosX64Test)) {
-            dependsOn(nativeTest)
+        configure(listOf(iosArm64Test, iosX64Test, macosX64Test)) {
+            dependsOn(darwinTest)
         }
     }
 }
