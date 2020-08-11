@@ -76,22 +76,26 @@ bintray {
             .map { it.name }
             .toTypedArray()
     )
-    pkg(delegateClosureOf<BintrayExtension.PackageConfig> {
-        repo = Bintray.repo
-        name = publishingArtifactIdBase
-        desc = Bintray.desc
-        userOrg = Bintray.userOrg
-        websiteUrl = Bintray.websiteUrl
-        vcsUrl = Bintray.vcsUrl
-        issueTrackerUrl = Bintray.issueTrackerUrl
-        githubRepo = Bintray.githubRepo
-        githubReleaseNotesFile = Bintray.githubReleaseNoteFile
-        setLabels(* Bintray.labels)
-        setLicenses(*Bintray.licenses)
-        version(delegateClosureOf<BintrayExtension.VersionConfig> {
-            name = publishingArtifactVersion
-        })
-    })
+    pkg(
+        delegateClosureOf<BintrayExtension.PackageConfig> {
+            repo = Bintray.repo
+            name = publishingArtifactIdBase
+            desc = Bintray.desc
+            userOrg = Bintray.userOrg
+            websiteUrl = Bintray.websiteUrl
+            vcsUrl = Bintray.vcsUrl
+            issueTrackerUrl = Bintray.issueTrackerUrl
+            githubRepo = Bintray.githubRepo
+            githubReleaseNotesFile = Bintray.githubReleaseNoteFile
+            setLabels(* Bintray.labels)
+            setLicenses(*Bintray.licenses)
+            version(
+                delegateClosureOf<BintrayExtension.VersionConfig> {
+                    name = publishingArtifactVersion
+                }
+            )
+        }
+    )
 }
 
 afterEvaluate {

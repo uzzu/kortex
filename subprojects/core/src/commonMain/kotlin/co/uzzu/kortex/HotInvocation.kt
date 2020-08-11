@@ -36,10 +36,10 @@ fun hotInvocation(
 
 /**
  * Hot-invoke specified suspending function by unique key
- * @param   key unique key to use hot-invoke a specified suspending function
- * @param   block suspending function to invoke
- * @return  same value if specified suspend function was reused
- * @throws  IllegalArgumentException if coroutineContext[HotInvocation] was not set.
+ * @param key unique key to use hot-invoke a specified suspending function
+ * @param block suspending function to invoke
+ * @return same value if specified suspend function was reused
+ * @throws IllegalArgumentException if coroutineContext[HotInvocation] was not set.
  */
 @ExperimentalCoroutinesApi
 @Suppress("SuspendFunctionOnCoroutineScope")
