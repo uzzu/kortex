@@ -26,12 +26,12 @@ fun hotLaunch(map: MutableMap<String, Job> = mutableMapOf()): HotLaunch = HotLau
 
 /**
  * Hot-launch coroutine by unique key
- * @param   key unique key to use hot-invoke a coroutine.
- * @param   context to use CoroutineScope#launch
- * @param   start to use CoroutineScope#launch
- * @param   block to use CoroutineScope#launch
- * @return  Same job if a coroutine was reused
- * @throws  IllegalArgumentException if coroutineContext[HotLaunch] was not set.
+ * @param key unique key to use hot-invoke a coroutine.
+ * @param context to use CoroutineScope#launch
+ * @param start to use CoroutineScope#launch
+ * @param block to use CoroutineScope#launch
+ * @return Same job if a coroutine was reused
+ * @throws IllegalArgumentException if coroutineContext[HotLaunch] was not set.
  */
 fun CoroutineScope.launchHot(
     key: String,
