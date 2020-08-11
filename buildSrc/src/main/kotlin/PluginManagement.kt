@@ -9,8 +9,6 @@ object PluginsId {
     const val nodeGradle = "com.moowork.node"
 
     // Android
-    const val androidApplication = "com.android.application"
-    const val androidLibrary = "com.android.library"
     const val androidJunit5 = "de.mannodermaus.android-junit5"
 
     // Android Kotlin
@@ -23,11 +21,15 @@ object PluginsId {
 fun ScriptHandlerScope.legacyBuildScriptClasspath() {
     dependencies {
         classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:${Versions.kotlin}")
+        classpath("com.android.tools.build:gradle:${Versions.androidGradlePlugin}")
     }
 }
 
 val PluginDependenciesSpec.kotlinMultiPlatform
     get() = id("org.jetbrains.kotlin.multiplatform") // version Versions.kotlin // for legacy
+
+val PluginDependenciesSpec.androidLibrary
+    get() = id("com.android.library")
 
 // endregion
 
