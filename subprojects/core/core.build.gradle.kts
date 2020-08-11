@@ -3,13 +3,43 @@ import com.jfrog.bintray.gradle.BintrayExtension
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
+    androidLibrary
     kotlinMultiPlatform
     bintray
     `maven-publish`
 }
 
+android {
+    compileSdkVersion(AndroidSdk.compileSdkVersion)
+
+    defaultConfig {
+        minSdkVersion(AndroidSdk.minSdkVersion)
+        targetSdkVersion(AndroidSdk.targetSdkVersion)
+        versionName = publishingArtifactVersion
+        consumerProguardFiles("proguard-rules.pro")
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    testOptions {
+        unitTests.isReturnDefaultValues = true
+    }
+
+    sourceSets {
+        val main by getting {
+            manifest.srcFile("src/androidMain/AndroidManifest.xml")
+            java.srcDirs("src/androidMain/kotlin")
+        }
+        val test by getting {
+            java.srcDirs("src/androidTest/kotlin")
+        }
+    }
+}
+
 kotlin {
     jvm()
+    android {
+        publishLibraryVariants("release")
+    }
 
     sourceSets {
         val commonMain by getting {
@@ -44,6 +74,24 @@ kotlin {
                 implementation(TestLibs.assertkJvm)
             }
         }
+
+        val androidMain by getting {
+            dependencies {
+                implementation(Libs.kotlinStdlibJvm)
+                implementation(Libs.coroutinesCoreJvm)
+            }
+        }
+
+        val androidTest by getting {
+            dependencies {
+                runtimeOnly(TestLibs.junit5Engine)
+                implementation(TestLibs.kotlinTestJunit5)
+                implementation(TestLibs.kotlinReflectJvm)
+                implementation(TestLibs.junit5)
+                implementation(TestLibs.junit5Param)
+                implementation(TestLibs.assertkJvm)
+            }
+        }
     }
 }
 
@@ -61,7 +109,7 @@ tasks {
         }
     }
     // alias to allTests task (Kotlin MPP does not have test task)
-    register("test") { dependsOn("allTests") }
+    // register("test") { dependsOn("allTests") }
 }
 
 setProperty("archivesBaseName", publishingArtifactIdBase)

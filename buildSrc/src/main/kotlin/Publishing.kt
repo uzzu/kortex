@@ -2,7 +2,7 @@ import org.gradle.api.Project
 
 private const val majorVersion: Int = 0
 private const val minorVersion: Int = 3
-private val patchVersion = 0
+private val patchVersion = 1
 private const val coreModuleName = "core"
 
 val Project.publishingGroupId: String
