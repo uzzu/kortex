@@ -149,7 +149,14 @@ bintray {
 afterEvaluate {
     publishing {
         repositories {
-            maven(url = Bintray.mavenUrl)
+            maven {
+                name = "bintray"
+                url = uri("https://api.bintray.com/content/$bintrayUser/${Bintray.repo}/$publishingArtifactIdBase/$publishingArtifactVersion;override=1;publish=0")
+                credentials {
+                    username = bintrayUser
+                    password = bintrayApiKey
+                }
+            }
         }
 
         publications.withType<MavenPublication>().all {
