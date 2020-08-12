@@ -19,14 +19,23 @@ repositories {
 ```
 
 ```kotlin
+implementation("co.uzzu.kortex:kortex:0.3.1")
+```
+
+or resolve manually without using gradle metadata
+
+```kotlin
 // common project
 implementation("co.uzzu.kortex:kortex-common:0.3.1")
 
 // jvm project
 implementation("co.uzzu.kortex:kortex-jvm:0.3.1")
 
-// Android project
+// Android release project
 implementation("co.uzzu.kortex:kortex-android:0.3.1")
+
+// Android debug project
+implementation("co.uzzu.kortex:kortex-android-debug:0.3.1")
 ```
 
 ## Features

@@ -38,7 +38,7 @@ android {
 kotlin {
     jvm()
     android {
-        publishLibraryVariants("release")
+        publishAllLibraryVariants()
     }
 
     sourceSets {
@@ -108,8 +108,6 @@ tasks {
             )
         }
     }
-    // alias to allTests task (Kotlin MPP does not have test task)
-    // register("test") { dependsOn("allTests") }
 }
 
 setProperty("archivesBaseName", publishingArtifactIdBase)
@@ -151,7 +149,7 @@ afterEvaluate {
         repositories {
             maven {
                 name = "bintray"
-                url = uri("https://api.bintray.com/content/$bintrayUser/${Bintray.repo}/$publishingArtifactIdBase/$publishingArtifactVersion;override=1;publish=0")
+                url = uri("https://api.bintray.com/content/$bintrayUser/${Bintray.repo}/$publishingArtifactIdBase/$publishingArtifactVersion;override=1;publish=0") // ktlint-disable max-line-length
                 credentials {
                     username = bintrayUser
                     password = bintrayApiKey
