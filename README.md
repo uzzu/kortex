@@ -13,17 +13,20 @@ Kotlin 1.3.+
 ```kotlin
 repositories {
     jcenter()
-    // If you can't download package, please add.
+    // If you can't download package, please try to add.
     maven(url = "https://dl.bintray.com/uzzu/maven/")
 }
 ```
 
 ```kotlin
 // common project
-implementation("co.uzzu.kortex:kortex-common:0.2.0")
+implementation("co.uzzu.kortex:kortex-common:0.3.1")
 
-// jvm, and Android project
-implementation("co.uzzu.kortex:kortex-jvm:0.2.0")
+// jvm project
+implementation("co.uzzu.kortex:kortex-jvm:0.3.1")
+
+// Android project
+implementation("co.uzzu.kortex:kortex-android:0.3.1")
 ```
 
 ## Features
