@@ -5,6 +5,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.4.0] - 2020-09-06
+
+### Changed
+- The maven artifacts of this library are published to Maven Central Repository since this version.
+  - Previously they were published to jcenter.
+- Use Kotlin 1.4.0
+- Use kotlinx-coroutines 1.3.9
+
 ## [0.3.1] - 2020-08-11
 
 ### Changed
