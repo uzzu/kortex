@@ -1,8 +1,8 @@
 import org.gradle.api.Project
 
 private const val majorVersion: Int = 0
-private const val minorVersion: Int = 3
-private val patchVersion = 1
+private const val minorVersion: Int = 4
+private val patchVersion: Int = 0
 private const val coreModuleName = "core"
 
 val Project.publishingGroupId: String
@@ -19,6 +19,13 @@ val Project.publishingArtifactIdBase: String
         project.name.replace(coreModuleName, it)
     }
 
+fun Project.publishingArtifactVersion(isPublishProduction: Boolean): String =
+    if (isPublishProduction) {
+        publishingArtifactVersion
+    } else {
+        "$publishingArtifactVersion-SNAPSHOT"
+    }
+
 object MavenPublications {
     const val description = "Coroutines techniques"
     const val url = "https://github.com/uzzu/kortex"
@@ -30,24 +37,4 @@ object MavenPublications {
     const val organization = developersId
     const val organizationUrl = "https://uzzu.co"
     const val scmUrl = "https://github.com/uzzu/kortex"
-}
-
-val Project.bintrayUser: String?
-    get() = findProperty("bintrayUser") as String?
-val Project.bintrayApiKey: String?
-    get() = findProperty("bintrayApiKey") as String?
-
-object Bintray {
-    const val mavenUrl = "https://dl.bintray.com/uzzu/maven"
-    const val repo = "maven"
-    const val desc = MavenPublications.description
-    const val userOrg = MavenPublications.organization
-    const val websiteUrl = MavenPublications.url
-    const val issueTrackerUrl = "https://github.com/uzzu/kortex/issues"
-    const val vcsUrl = "https://github.com/uzzu/kortex.git"
-    const val githubRepo = "uzzu/kortex"
-    const val githubReleaseNoteFile = "CHANGELOG.md"
-    val licenses = arrayOf("Apache-2.0")
-    val labels = arrayOf("Kotlin", "Android")
-    val publicDownloadNumbers = true
 }

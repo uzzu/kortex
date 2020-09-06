@@ -1,12 +1,13 @@
 import com.google.common.base.CaseFormat
-import com.jfrog.bintray.gradle.BintrayExtension
+import org.jetbrains.dokka.gradle.DokkaTask
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    androidLibrary
-    kotlinMultiPlatform
-    bintray
+    id("com.android.library")
+    kotlin("multiplatform")
+    id("org.jetbrains.dokka")
     `maven-publish`
+    signing
 }
 
 android {
@@ -15,7 +16,7 @@ android {
     defaultConfig {
         minSdkVersion(AndroidSdk.minSdkVersion)
         targetSdkVersion(AndroidSdk.targetSdkVersion)
-        versionName = publishingArtifactVersion
+        versionName = publishingArtifactVersion(env.PUBLISH_PRODUCTION.isPresent)
         consumerProguardFiles("proguard-rules.pro")
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -44,8 +45,7 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
-                implementation(Libs.kotlinStdlibCommon)
-                implementation(Libs.coroutinesCoreCommon)
+                implementation(Libs.coroutinesCore)
             }
         }
 
@@ -53,14 +53,12 @@ kotlin {
             dependencies {
                 implementation(TestLibs.kotlinTestCommon)
                 implementation(TestLibs.kotlinTestAnnotationsCommon)
-                implementation(TestLibs.assertkCommon)
+                implementation(TestLibs.assertk)
             }
         }
 
         val jvmMain by getting {
             dependencies {
-                implementation(Libs.kotlinStdlibJvm)
-                implementation(Libs.coroutinesCoreJvm)
             }
         }
 
@@ -71,14 +69,11 @@ kotlin {
                 implementation(TestLibs.kotlinReflectJvm)
                 implementation(TestLibs.junit5)
                 implementation(TestLibs.junit5Param)
-                implementation(TestLibs.assertkJvm)
             }
         }
 
         val androidMain by getting {
             dependencies {
-                implementation(Libs.kotlinStdlibJvm)
-                implementation(Libs.coroutinesCoreJvm)
             }
         }
 
@@ -89,12 +84,12 @@ kotlin {
                 implementation(TestLibs.kotlinReflectJvm)
                 implementation(TestLibs.junit5)
                 implementation(TestLibs.junit5Param)
-                implementation(TestLibs.assertkJvm)
             }
         }
     }
 }
 
+lateinit var dokkaJar: TaskProvider<Jar>
 tasks {
     named<Test>("jvmTest") {
         useJUnitPlatform()
@@ -108,51 +103,26 @@ tasks {
             )
         }
     }
+    val dokkaJavadoc = getByName("dokkaJavadoc", DokkaTask::class)
+    dokkaJar = register("dokkaJar", Jar::class) {
+        archiveClassifier.set("javadoc")
+        dependsOn(dokkaJavadoc)
+        from(dokkaJavadoc.outputDirectory)
+    }
 }
 
 setProperty("archivesBaseName", publishingArtifactIdBase)
 
-bintray {
-    user = bintrayUser
-    key = bintrayApiKey
-    publish = false
-    setPublications(
-        *publishing.publications
-            .withType<MavenPublication>()
-            .map { it.name }
-            .toTypedArray()
-    )
-    pkg(
-        delegateClosureOf<BintrayExtension.PackageConfig> {
-            repo = Bintray.repo
-            name = publishingArtifactIdBase
-            desc = Bintray.desc
-            userOrg = Bintray.userOrg
-            websiteUrl = Bintray.websiteUrl
-            vcsUrl = Bintray.vcsUrl
-            issueTrackerUrl = Bintray.issueTrackerUrl
-            githubRepo = Bintray.githubRepo
-            githubReleaseNotesFile = Bintray.githubReleaseNoteFile
-            setLabels(* Bintray.labels)
-            setLicenses(*Bintray.licenses)
-            version(
-                delegateClosureOf<BintrayExtension.VersionConfig> {
-                    name = publishingArtifactVersion
-                }
-            )
-        }
-    )
-}
-
-afterEvaluate {
+afterEvaluate { // workaround for AGP to resolve android library artifactId correctly.
     publishing {
         repositories {
             maven {
-                name = "bintray"
-                url = uri("https://api.bintray.com/content/$bintrayUser/${Bintray.repo}/$publishingArtifactIdBase/$publishingArtifactVersion;override=1;publish=0") // ktlint-disable max-line-length
+                url = env.PUBLISH_PRODUCTION.orNull()
+                    ?.run { uri("https://oss.sonatype.org/service/local/staging/deploy/maven2/") }
+                    ?: uri("https://oss.sonatype.org/content/repositories/snapshots/")
                 credentials {
-                    username = bintrayUser
-                    password = bintrayApiKey
+                    username = env.OSSRH_USERNAME.orElse("")
+                    password = env.OSSRH_PASSWORD.orElse("")
                 }
             }
         }
@@ -174,7 +144,10 @@ afterEvaluate {
             }
             groupId = publishingGroupId
             artifactId = publishingArtifactId
-            version = publishingArtifactVersion
+            version = publishingArtifactVersion(env.PUBLISH_PRODUCTION.isPresent)
+
+            artifact(dokkaJar.get())
+
             pom {
                 name.set(publishingArtifactId)
                 description.set(MavenPublications.description)
@@ -199,5 +172,19 @@ afterEvaluate {
                 }
             }
         }
+    }
+}
+
+signing {
+    if (env.PUBLISH_PRODUCTION.isPresent) {
+        setRequired { gradle.taskGraph.hasTask("publish") }
+        sign(publishing.publications)
+
+        @Suppress("UnstableApiUsage")
+        useInMemoryPgpKeys(
+            env.SIGNING_KEYID.orElse(""),
+            env.SIGNING_KEY.orElse(""),
+            env.SIGNING_PASSOWORD.orElse("")
+        )
     }
 }

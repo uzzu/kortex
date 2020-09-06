@@ -1,41 +1,33 @@
 # Kortex
 
-[![Download](https://api.bintray.com/packages/uzzu/maven/kortex/images/download.svg)](https://bintray.com/uzzu/maven/kortex/_latestVersion)
+[![Coding Style][ktlint-img]][ktlint][![Released Version][maven-img]][maven]
 
 Kotlin Coroutines helpers
 
 ## Requirements
 
-Kotlin 1.3.+
+Kotlin 1.4.+
 
 ## Setup
 
 ```kotlin
-repositories {
-    jcenter()
-    // If you can't download package, please try to add.
-    maven(url = "https://dl.bintray.com/uzzu/maven/")
-}
-```
-
-```kotlin
-implementation("co.uzzu.kortex:kortex:0.3.1")
+implementation("co.uzzu.kortex:kortex:0.4.0")
 ```
 
 or resolve manually without using gradle metadata
 
 ```kotlin
 // common project
-implementation("co.uzzu.kortex:kortex-common:0.3.1")
+implementation("co.uzzu.kortex:kortex-common:0.4.0")
 
 // jvm project
-implementation("co.uzzu.kortex:kortex-jvm:0.3.1")
+implementation("co.uzzu.kortex:kortex-jvm:0.4.0")
 
 // Android release project
-implementation("co.uzzu.kortex:kortex-android:0.3.1")
+implementation("co.uzzu.kortex:kortex-android:0.4.0")
 
 // Android debug project
-implementation("co.uzzu.kortex:kortex-android-debug:0.3.1")
+implementation("co.uzzu.kortex:kortex-android-debug:0.4.0")
 ```
 
 ## Features
@@ -51,3 +43,8 @@ implementation("co.uzzu.kortex:kortex-android-debug:0.3.1")
 ## License
 
 [Apache 2.0 license](LICENSE.txt)
+
+[ktlint-img]: https://img.shields.io/badge/code%20style-%E2%9D%A4-FF4081.svg
+[ktlint]: https://ktlint.github.io/
+[maven-img]: https://img.shields.io/maven-central/v/co.uzzu.kortex/kortex.svg?maxAge=2000
+[maven]: https://search.maven.org/search?q=g:co.uzzu.kortex

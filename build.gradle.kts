@@ -1,11 +1,16 @@
 buildscript {
-    legacyBuildScriptClasspath()
+    dependencies {
+        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:${Versions.kotlin}")
+        classpath("com.android.tools.build:gradle:4.0.1")
+    }
 }
 
 plugins {
     base
-    ktlint
-    buildTimeTracker
+    id("co.uzzu.dotenv.gradle") version "1.1.0"
+    id("org.jetbrains.dokka") version "1.4.0" apply false
+    id("org.jlleitschuh.gradle.ktlint") version "9.3.0"
+    id("net.rdrei.android.buildtimetracker") version "0.11.0"
 }
 
 allProjectsRepositories()
@@ -23,7 +28,7 @@ allprojects {
 
 subprojects {
     apply {
-        ktlint
+        plugin("org.jlleitschuh.gradle.ktlint")
     }
 
     ktlint {

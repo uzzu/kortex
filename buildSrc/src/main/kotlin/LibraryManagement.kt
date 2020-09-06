@@ -15,13 +15,7 @@ fun Project.allProjectsRepositories() {
 
 @Suppress("unused")
 object Libs {
-    const val kotlinStdlibCommon = "org.jetbrains.kotlin:kotlin-stdlib-common:${Versions.kotlin}"
-    const val kotlinStdlibJvm = "org.jetbrains.kotlin:kotlin-stdlib:${Versions.kotlin}"
-    const val kotlinStdlibJs = "org.jetbrains.kotlin:kotlin-stdlib-js:${Versions.kotlin}"
-    const val coroutinesCoreCommon = "org.jetbrains.kotlinx:kotlinx-coroutines-core-common:${Versions.kotlinCoroutines}"
-    const val coroutinesCoreJvm = "org.jetbrains.kotlinx:kotlinx-coroutines-core:${Versions.kotlinCoroutines}"
-    const val coroutinesCoreNative = "org.jetbrains.kotlinx:kotlinx-coroutines-core-native:${Versions.kotlinCoroutines}"
-    const val coroutinesCoreJs = "org.jetbrains.kotlinx:kotlinx-coroutines-core-js:${Versions.kotlinCoroutines}"
+    const val coroutinesCore = "org.jetbrains.kotlinx:kotlinx-coroutines-core:${Versions.kotlinCoroutines}"
 }
 
 @Suppress("unused")
@@ -33,8 +27,7 @@ object TestLibs {
     const val kotlinReflectJvm = "org.jetbrains.kotlin:kotlin-reflect:${Versions.kotlin}"
 
     // assertion
-    const val assertkCommon = "com.willowtreeapps.assertk:assertk:${Versions.assertk}"
-    const val assertkJvm = "com.willowtreeapps.assertk:assertk-jvm:${Versions.assertk}"
+    const val assertk = "com.willowtreeapps.assertk:assertk:${Versions.assertk}"
 
     // kotlin-multiplatform-common specific
     const val kotlinTestCommon = "org.jetbrains.kotlin:kotlin-test-common:${Versions.kotlin}"
