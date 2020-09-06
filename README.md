@@ -1,4 +1,4 @@
-[![Coding Style][ktlint-img]] [ktlint][![Released Version][maven-img]][maven]
+[![Coding Style][ktlint-img]][ktlint] [![Released Version][maven-img]][maven]
 
 # Kortex
 
