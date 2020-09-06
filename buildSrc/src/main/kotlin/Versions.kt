@@ -7,13 +7,7 @@ object AndroidSdk {
 
 @Suppress("unused")
 object Versions {
-    // gradle plugins
-    const val ktlintPlugin = "9.3.0"
-    const val buildTimeTrackerPlugin = "0.11.0"
-    const val nodeGradlePlugin = "1.2.0"
     const val androidGradlePlugin = "4.0.1"
-    const val androidJunit5Plugin = "1.6.2.0"
-    const val bintray = "1.8.4"
 
     // Kotlin
     const val kotlin = "1.4.0"
