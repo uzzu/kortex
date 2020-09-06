@@ -44,8 +44,7 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
-                implementation(Libs.kotlinStdlibCommon)
-                implementation(Libs.coroutinesCoreCommon)
+                implementation(Libs.coroutinesCore)
             }
         }
 
@@ -53,14 +52,12 @@ kotlin {
             dependencies {
                 implementation(TestLibs.kotlinTestCommon)
                 implementation(TestLibs.kotlinTestAnnotationsCommon)
-                implementation(TestLibs.assertkCommon)
+                implementation(TestLibs.assertk)
             }
         }
 
         val jvmMain by getting {
             dependencies {
-                implementation(Libs.kotlinStdlibJvm)
-                implementation(Libs.coroutinesCoreJvm)
             }
         }
 
@@ -71,14 +68,11 @@ kotlin {
                 implementation(TestLibs.kotlinReflectJvm)
                 implementation(TestLibs.junit5)
                 implementation(TestLibs.junit5Param)
-                implementation(TestLibs.assertkJvm)
             }
         }
 
         val androidMain by getting {
             dependencies {
-                implementation(Libs.kotlinStdlibJvm)
-                implementation(Libs.coroutinesCoreJvm)
             }
         }
 
@@ -89,7 +83,6 @@ kotlin {
                 implementation(TestLibs.kotlinReflectJvm)
                 implementation(TestLibs.junit5)
                 implementation(TestLibs.junit5Param)
-                implementation(TestLibs.assertkJvm)
             }
         }
     }
