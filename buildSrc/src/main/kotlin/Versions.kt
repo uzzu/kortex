@@ -7,11 +7,11 @@ object AndroidSdk {
 
 @Suppress("unused")
 object Versions {
-    const val androidGradlePlugin = "4.0.1"
+    const val androidGradlePlugin = "4.2.1"
 
     // Kotlin
-    const val kotlin = "1.4.10"
-    const val kotlinCoroutines = "1.3.9"
+    const val kotlin = "1.5.0"
+    const val kotlinCoroutines = "1.5.0"
 
     // node
     const val node = "8.9.3"
@@ -19,7 +19,7 @@ object Versions {
     const val mochaJunitReporter = "1.18.0"
 
     // Android
-    const val androidxAppCompat = "1.1.0"
+    const val androidxAppCompat = "1.2.0"
 
     // ExampleLibs
     const val timber = "4.7.1"

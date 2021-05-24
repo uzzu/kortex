@@ -1,7 +1,7 @@
 import org.gradle.api.Project
 
 private const val majorVersion: Int = 0
-private const val minorVersion: Int = 4
+private const val minorVersion: Int = 5
 private val patchVersion: Int = 1
 private const val coreModuleName = "core"
 
