@@ -5,11 +5,22 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.6.0] - 2021-06-21
+
+### Changed
+- Use Kotlin 1.5.10
+- Add a new hot-invocation implementation `KeyedSingleSharedFlowContext` , by using kotlinx.coroutines.Flow
+- HotInvocation was deprecated, so please migrate to KeyedSingleSharedFlowContext
+
 ## [0.5.0] - 2021-05-24
+
+### Changed
 - Use Kotlin 1.5.0
   - BroadcastChannel is deprecated, so we have to replace with SharedFlow or any others.
 
 ## [0.4.1] - 2020-10-09
+
+### Changed
 - Use Kotlin 1.4.10
 
 ## [0.4.0] - 2020-09-06
