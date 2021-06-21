@@ -11,23 +11,23 @@ Kotlin 1.5.+
 ## Setup
 
 ```kotlin
-implementation("co.uzzu.kortex:kortex:0.5.0")
+implementation("co.uzzu.kortex:kortex:0.6.0")
 ```
 
 or resolve manually without using gradle metadata
 
 ```kotlin
 // common project
-implementation("co.uzzu.kortex:kortex-common:0.5.0")
+implementation("co.uzzu.kortex:kortex-common:0.6.0")
 
 // jvm project
-implementation("co.uzzu.kortex:kortex-jvm:0.5.0")
+implementation("co.uzzu.kortex:kortex-jvm:0.6.0")
 
 // Android release project
-implementation("co.uzzu.kortex:kortex-android:0.5.0")
+implementation("co.uzzu.kortex:kortex-android:0.6.0")
 
 // Android debug project
-implementation("co.uzzu.kortex:kortex-android-debug:0.5.0")
+implementation("co.uzzu.kortex:kortex-android-debug:0.6.0")
 ```
 
 ## Features
