@@ -2,6 +2,7 @@ package co.uzzu.kortex
 
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.ObsoleteCoroutinesApi
 import kotlinx.coroutines.channels.BroadcastChannel
 import kotlinx.coroutines.channels.broadcast
 import kotlinx.coroutines.sync.Mutex
@@ -11,7 +12,8 @@ import kotlin.coroutines.CoroutineContext
 /**
  * Coroutine context element by using CoroutineScope#withHot
  */
-@ExperimentalCoroutinesApi
+@ObsoleteCoroutinesApi
+@Deprecated("Please migrate to KeyedSingleSharedContext")
 interface HotInvocation : CoroutineContext.Element {
     override val key: CoroutineContext.Key<*> get() = Key
 
@@ -27,7 +29,8 @@ interface HotInvocation : CoroutineContext.Element {
  * @param mutex
  * @return A new HotInvocation object
  */
-@ExperimentalCoroutinesApi
+@OptIn(ObsoleteCoroutinesApi::class)
+@Deprecated("Please migrate to KeyedSingleSharedContext")
 fun hotInvocation(
     mutex: Mutex = Mutex(),
     map: MutableMap<String, BroadcastChannel<*>> = mutableMapOf()
@@ -41,7 +44,8 @@ fun hotInvocation(
  * @return same value if specified suspend function was reused
  * @throws IllegalArgumentException if coroutineContext[HotInvocation] was not set.
  */
-@ExperimentalCoroutinesApi
+@OptIn(ExperimentalCoroutinesApi::class, kotlinx.coroutines.ObsoleteCoroutinesApi::class)
+@Deprecated("Please migrate to CoroutineScope#withSingleShared")
 @Suppress("SuspendFunctionOnCoroutineScope")
 suspend fun <T> CoroutineScope.withHot(key: String, block: suspend () -> T): T {
     val invocation = requireNotNull(coroutineContext[HotInvocation]) {
@@ -71,7 +75,7 @@ suspend fun <T> CoroutineScope.withHot(key: String, block: suspend () -> T): T {
     }.receive()
 }
 
-@ExperimentalCoroutinesApi
+@ObsoleteCoroutinesApi
 private class HotInvocationImpl(
     override val mutex: Mutex,
     override val map: MutableMap<String, BroadcastChannel<*>>

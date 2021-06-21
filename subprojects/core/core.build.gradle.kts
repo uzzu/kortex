@@ -99,7 +99,7 @@ tasks {
             jvmTarget = JavaVersion.VERSION_1_8.toString()
             freeCompilerArgs = listOf(
                 "-Xjsr305=strict",
-                "-Xuse-experimental=kotlinx.coroutines.ExperimentalCoroutinesApi"
+                "-Xopt-in=kotlin.RequiresOptIn"
             )
         }
     }

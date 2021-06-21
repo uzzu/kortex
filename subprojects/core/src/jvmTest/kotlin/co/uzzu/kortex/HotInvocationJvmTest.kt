@@ -19,11 +19,11 @@ import kotlin.test.Test
 import kotlin.test.fail
 
 class HotInvocationJvmTest {
-    class InvocationResult(private val value: Int) {
+    private class InvocationResult(val value: Int) {
         override fun equals(other: Any?): Boolean = this === other
     }
 
-    suspend fun suspendResult(value: Int): InvocationResult {
+    private suspend fun suspendResult(value: Int): InvocationResult {
         delay(10)
         return InvocationResult(value * value)
     }

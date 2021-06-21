@@ -10,6 +10,7 @@ import assertk.assertions.isEqualTo
 import assertk.assertions.isNull
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.flow.flow
 import kotlin.test.Test
 
 class HotInvocationTest {
