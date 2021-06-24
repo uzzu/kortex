@@ -11,23 +11,23 @@ Kotlin 1.5.+
 ## Setup
 
 ```kotlin
-implementation("co.uzzu.kortex:kortex:0.6.0")
+implementation("co.uzzu.kortex:kortex:0.7.0")
 ```
 
 or resolve manually without using gradle metadata
 
 ```kotlin
 // common project
-implementation("co.uzzu.kortex:kortex-common:0.6.0")
+implementation("co.uzzu.kortex:kortex-common:0.7.0")
 
 // jvm project
-implementation("co.uzzu.kortex:kortex-jvm:0.6.0")
+implementation("co.uzzu.kortex:kortex-jvm:0.7.0")
 
 // Android release project
-implementation("co.uzzu.kortex:kortex-android:0.6.0")
+implementation("co.uzzu.kortex:kortex-android:0.7.0")
 
 // Android debug project
-implementation("co.uzzu.kortex:kortex-android-debug:0.6.0")
+implementation("co.uzzu.kortex:kortex-android-debug:0.7.0")
 ```
 
 ## Features
@@ -36,9 +36,15 @@ implementation("co.uzzu.kortex:kortex-android-debug:0.6.0")
 
 [See more examples](subprojects/core/src/jvmTest/kotlin/co/uzzu/kortex/HotLaunchJvmTest.kt)
 
-### hot-invocation for suspending function
+### Pseudo hot-stream Flow with key cached
 
-[See more examples](subprojects/core/src/jvmTest/kotlin/co/uzzu/kortex/HotInvocationJvmTest.kt)
+It works like `publish().refcount()` in RxJava, and caches the Flow instance by key string, so you can use a hot-stream considering the change of arguments.
+
+[See more examples](https://github.com/uzzu/kortex/blob/main/subprojects/core/src/jvmTest/kotlin/co/uzzu/kortex/KeyedSingleSharedFlowJvmTest.kt)
+
+### (Deprecated since 0.6.0) hot-invocation for suspending function
+
+~~[See more examples](subprojects/core/src/jvmTest/kotlin/co/uzzu/kortex/HotInvocationJvmTest.kt)~~ This is deprecated because by using BroadcastChannel
 
 ## License
 
