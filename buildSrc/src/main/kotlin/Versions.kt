@@ -10,7 +10,7 @@ object Versions {
     const val androidGradlePlugin = "4.2.1"
 
     // Kotlin
-    const val kotlin = "1.5.10"
+    const val kotlin = "1.5.20"
     const val kotlinCoroutines = "1.5.0"
 
     // node
