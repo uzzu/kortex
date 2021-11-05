@@ -7,8 +7,6 @@ fun Project.allProjectsRepositories() {
         repositories {
             google()
             mavenCentral()
-            maven(url = "https://jitpack.io")
-            jcenter()
         }
     }
 }

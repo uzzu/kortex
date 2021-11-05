@@ -1,5 +1,5 @@
 repositories {
-    jcenter()
+    mavenCentral()
 }
 
 plugins {
@@ -8,8 +8,4 @@ plugins {
 
 dependencies {
     api("com.google.guava:guava:28.2-jre")
-}
-
-kotlinDslPluginOptions {
-    experimentalWarning.set(false)
 }
