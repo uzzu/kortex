@@ -10,7 +10,6 @@ plugins {
     id("co.uzzu.dotenv.gradle") version "1.1.0"
     id("org.jetbrains.dokka") version "1.4.0" apply false
     id("org.jlleitschuh.gradle.ktlint") version "9.3.0"
-    id("net.rdrei.android.buildtimetracker") version "0.11.0"
 }
 
 allProjectsRepositories()
@@ -39,15 +38,5 @@ subprojects {
             reporter(org.jlleitschuh.gradle.ktlint.reporter.ReporterType.CHECKSTYLE)
         }
         ignoreFailures.set(true)
-    }
-}
-
-buildtimetracker {
-    reporters {
-        register("summary") {
-            options["ordered"] = "true"
-            options["barstyle"] = "ascii"
-            options["shortenTaskNames"] = "false"
-        }
     }
 }
