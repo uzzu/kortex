@@ -11,12 +11,11 @@ plugins {
 }
 
 android {
-    compileSdkVersion(AndroidSdk.compileSdkVersion)
+    compileSdk = AndroidSdk.compileSdkVersion
 
     defaultConfig {
-        minSdkVersion(AndroidSdk.minSdkVersion)
-        targetSdkVersion(AndroidSdk.targetSdkVersion)
-        versionName = publishingArtifactVersion(env.PUBLISH_PRODUCTION.isPresent)
+        minSdk = AndroidSdk.minSdkVersion
+        targetSdk = AndroidSdk.targetSdkVersion
         consumerProguardFiles("proguard-rules.pro")
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -26,11 +25,11 @@ android {
     }
 
     sourceSets {
-        val main by getting {
+        getByName("main") {
             manifest.srcFile("src/androidMain/AndroidManifest.xml")
             java.srcDirs("src/androidMain/kotlin")
         }
-        val test by getting {
+        getByName("test") {
             java.srcDirs("src/androidTest/kotlin")
         }
     }
@@ -77,8 +76,11 @@ kotlin {
             }
         }
 
+        val androidAndroidTestRelease by getting
         val androidTest by getting {
             dependencies {
+                dependsOn(androidAndroidTestRelease)
+
                 runtimeOnly(TestLibs.junit5Engine)
                 implementation(TestLibs.kotlinTestJunit5)
                 implementation(TestLibs.kotlinReflectJvm)

@@ -1,15 +1,15 @@
 buildscript {
     dependencies {
         classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:${Versions.kotlin}")
-        classpath("com.android.tools.build:gradle:4.0.1")
+        classpath("com.android.tools.build:gradle:${Versions.androidGradlePlugin}")
     }
 }
 
 plugins {
     base
     id("co.uzzu.dotenv.gradle") version "1.1.0"
-    id("org.jetbrains.dokka") version "1.4.0" apply false
-    id("org.jlleitschuh.gradle.ktlint") version "9.3.0"
+    id("org.jetbrains.dokka") version Versions.kotlin apply false
+    id("org.jlleitschuh.gradle.ktlint") version "10.2.0"
 }
 
 allProjectsRepositories()
