@@ -11,23 +11,23 @@ Kotlin 1.5.+
 ## Setup
 
 ```kotlin
-implementation("co.uzzu.kortex:kortex:0.7.0")
+implementation("co.uzzu.kortex:kortex:0.8.0")
 ```
 
 or resolve manually without using gradle metadata
 
 ```kotlin
 // common project
-implementation("co.uzzu.kortex:kortex-common:0.7.0")
+implementation("co.uzzu.kortex:kortex-common:0.8.0")
 
 // jvm project
-implementation("co.uzzu.kortex:kortex-jvm:0.7.0")
+implementation("co.uzzu.kortex:kortex-jvm:0.8.0")
 
 // Android release project
-implementation("co.uzzu.kortex:kortex-android:0.7.0")
+implementation("co.uzzu.kortex:kortex-android:0.8.0")
 
 // Android debug project
-implementation("co.uzzu.kortex:kortex-android-debug:0.7.0")
+implementation("co.uzzu.kortex:kortex-android-debug:0.8.0")
 ```
 
 ## Features
@@ -45,6 +45,8 @@ It works like `publish().refcount()` in RxJava, and caches the Flow instance by 
 ### (Deprecated since 0.6.0) hot-invocation for suspending function
 
 ~~[See more examples](subprojects/core/src/jvmTest/kotlin/co/uzzu/kortex/HotInvocationJvmTest.kt)~~ This is deprecated because by using BroadcastChannel
+
+Please migrate to Pseudo hot-stream Flow with key cached feature. It can be used to suspending function.
 
 ## License
 
