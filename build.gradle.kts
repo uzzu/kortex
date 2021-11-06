@@ -7,7 +7,7 @@ buildscript {
 
 plugins {
     base
-    id("co.uzzu.dotenv.gradle") version "1.1.0"
+    id("co.uzzu.dotenv.gradle") version "1.2.0"
     id("org.jetbrains.dokka") version Versions.kotlin apply false
     id("org.jlleitschuh.gradle.ktlint") version "10.2.0"
 }
