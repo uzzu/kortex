@@ -88,6 +88,10 @@ kotlin {
                 implementation(TestLibs.junit5Param)
             }
         }
+
+        all {
+            languageSettings.optIn("kotlin.RequiresOptIn")
+        }
     }
 }
 
@@ -101,7 +105,6 @@ tasks {
             jvmTarget = JavaVersion.VERSION_1_8.toString()
             freeCompilerArgs = listOf(
                 "-Xjsr305=strict",
-                "-Xopt-in=kotlin.RequiresOptIn"
             )
         }
     }

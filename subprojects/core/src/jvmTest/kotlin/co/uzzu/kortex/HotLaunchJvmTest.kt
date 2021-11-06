@@ -12,7 +12,6 @@ import assertk.assertions.isNotNull
 import assertk.fail
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import kotlin.test.Test
 
@@ -75,11 +74,9 @@ class HotLaunchJvmTest {
             delay(10)
         }
 
-        launch {
-            runCatching { withHot("hot") { suspendFunction() } }
-                .onSuccess { fail("Unexpected result.") }
-                .onFailure { actual = it }
-        }.join()
+        runCatching { launchHot("hot") { suspendFunction() }.join() }
+            .onSuccess { fail("Unexpected result.") }
+            .onFailure { actual = it }
 
         assertAll {
             assertThat(actual).isNotNull()

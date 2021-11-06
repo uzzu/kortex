@@ -64,32 +64,32 @@ suspend fun <T> CoroutineScope.withSingleShared(context: CoroutineContext, key: 
 @Suppress("SuspendFunctionOnCoroutineScope")
 @OptIn(FlowPreview::class)
 suspend fun <T> CoroutineScope.withSingleSharedFlow(context: CoroutineContext, key: String, block: suspend () -> T): Flow<T> {
-        val singleSharedContext = requireNotNull(coroutineContext[KeyedSingleSharedFlowContext]) {
-            "Requires HotInvocation to call this function. Please add into your coroutineContext."
-        }
-        val mutex = singleSharedContext.mutex
-        val map = singleSharedContext.map
-        return mutex.withLock {
-            if (map.containsKey(key) && !requireNotNull(map[key]).isCompleted()) {
-                @Suppress("unchecked_cast")
-                val cached = map[key] as KeyedSingleSharedFlowContainer<T>
-                return@withLock cached.openSubscription()
-            }
-
-            map.remove(key)
+    val singleSharedContext = requireNotNull(coroutineContext[KeyedSingleSharedFlowContext]) {
+        "Requires HotInvocation to call this function. Please add into your coroutineContext."
+    }
+    val mutex = singleSharedContext.mutex
+    val map = singleSharedContext.map
+    return mutex.withLock {
+        if (map.containsKey(key) && !requireNotNull(map[key]).isCompleted()) {
             @Suppress("unchecked_cast")
-            val created = map.getOrPut(key) {
-                val flow = block.asFlow()
-                val container = KeyedSingleSharedFlowContainer(context, flow)
-                container.invokePreCompletion {
-                    mutex.withLock {
-                        map.remove(key)
-                    }
-                }
-                container
-            } as KeyedSingleSharedFlowContainer<T>
-            created.openSubscription()
+            val cached = map[key] as KeyedSingleSharedFlowContainer<T>
+            return@withLock cached.openSubscription()
         }
+
+        map.remove(key)
+        @Suppress("unchecked_cast")
+        val created = map.getOrPut(key) {
+            val flow = block.asFlow()
+            val container = KeyedSingleSharedFlowContainer(context, flow)
+            container.invokePreCompletion {
+                mutex.withLock {
+                    map.remove(key)
+                }
+            }
+            container
+        } as KeyedSingleSharedFlowContainer<T>
+        created.openSubscription()
+    }
 }
 
 private class KeyedSingleSharedFlowContextImpl(
