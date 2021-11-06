@@ -5,17 +5,35 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [Unreleased]
+
+### Changed
+- Use Kotlin 1.5.30
+- Use Android Gradle Plugin 7.0.3, and compileSdkVersion is moved to 31
+
+### Fixed
+- Fix build time warnings for using `@OptIn` annotation
+- Resolve ktlint violation
+
+### Deprecated
+- HotInvocation feature be removed in version 0.9.0. Please migrate to KeyedSingleSharedFlowContext
+
 ## [0.7.0] - 2021-06-25
 
 ### Changed
 - Use Kotlin 1.5.20
+
+### Deprecated
+- HotInvocation feature be removed in version 0.9.0. Please migrate to KeyedSingleSharedFlowContext
 
 ## [0.6.0] - 2021-06-21
 
 ### Changed
 - Use Kotlin 1.5.10
 - Add a new hot-invocation implementation `KeyedSingleSharedFlowContext` , by using kotlinx.coroutines.Flow
-- HotInvocation was deprecated, so please migrate to KeyedSingleSharedFlowContext
+
+### Deprecated
+- HotInvocation feature be removed in version 0.9.0. Please migrate to KeyedSingleSharedFlowContext
 
 ## [0.5.0] - 2021-05-24
 

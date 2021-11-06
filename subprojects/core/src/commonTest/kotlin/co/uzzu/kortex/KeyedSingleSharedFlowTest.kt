@@ -5,6 +5,7 @@ import assertk.assertThat
 import assertk.assertions.isEqualTo
 import assertk.assertions.isNull
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.GlobalScope
 import kotlin.test.Test
 
@@ -19,6 +20,7 @@ class KeyedSingleSharedFlowTest {
         }
     }
 
+    @DelicateCoroutinesApi
     @Test
     fun isNullIfNotSet() {
         assertAll {

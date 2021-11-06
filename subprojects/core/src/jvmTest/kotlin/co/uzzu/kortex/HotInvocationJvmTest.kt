@@ -2,6 +2,8 @@
  * Copyright 2019 Hirokazu Uzu. Use of this source code is governed by the Apache 2.0 license.
  */
 
+@file:Suppress("DEPRECATION")
+
 package co.uzzu.kortex
 
 import assertk.assertAll
