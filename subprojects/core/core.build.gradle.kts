@@ -76,11 +76,8 @@ kotlin {
             }
         }
 
-        val androidAndroidTestRelease by getting
         val androidTest by getting {
             dependencies {
-                dependsOn(androidAndroidTestRelease)
-
                 runtimeOnly(TestLibs.junit5Engine)
                 implementation(TestLibs.kotlinTestJunit5)
                 implementation(TestLibs.kotlinReflectJvm)
@@ -88,6 +85,9 @@ kotlin {
                 implementation(TestLibs.junit5Param)
             }
         }
+        val androidAndroidTestRelease by getting
+
+        androidTest.dependsOn(androidAndroidTestRelease)
 
         all {
             languageSettings.optIn("kotlin.RequiresOptIn")
