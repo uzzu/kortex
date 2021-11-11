@@ -1,18 +1,16 @@
 buildscript {
     dependencies {
-        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:${Versions.kotlin}")
-        classpath("com.android.tools.build:gradle:${Versions.androidGradlePlugin}")
+        classpath(legacyPluginDeps.kotlin)
+        classpath(legacyPluginDeps.android)
     }
 }
 
 plugins {
     base
-    id("co.uzzu.dotenv.gradle") version "1.2.0"
-    id("org.jetbrains.dokka") version Versions.kotlin apply false
-    id("org.jlleitschuh.gradle.ktlint") version "10.2.0"
+    alias(pluginDeps.plugins.dotenv)
+    alias(pluginDeps.plugins.dokka) apply false
+    alias(pluginDeps.plugins.ktlint)
 }
-
-allProjectsRepositories()
 
 allprojects {
     tasks {

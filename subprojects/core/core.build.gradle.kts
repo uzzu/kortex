@@ -3,9 +3,9 @@ import org.jetbrains.dokka.gradle.DokkaTask
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    id("com.android.library")
-    kotlin("multiplatform")
-    id("org.jetbrains.dokka")
+    id(pluginDeps.plugins.android.library.get().pluginId)
+    id(pluginDeps.plugins.kotlin.multiplatform.get().pluginId)
+    id(pluginDeps.plugins.dokka.get().pluginId)
     `maven-publish`
     signing
 }
@@ -44,15 +44,15 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
-                implementation(Libs.coroutinesCore)
+                implementation(deps.kotlinx.coroutines.core)
             }
         }
 
         val commonTest by getting {
             dependencies {
-                implementation(TestLibs.kotlinTestCommon)
-                implementation(TestLibs.kotlinTestAnnotationsCommon)
-                implementation(TestLibs.assertk)
+                implementation(testDeps.kotlin.test.common)
+                implementation(testDeps.kotlin.test.annotation.common)
+                implementation(testDeps.assertk)
             }
         }
 
@@ -63,11 +63,11 @@ kotlin {
 
         val jvmTest by getting {
             dependencies {
-                runtimeOnly(TestLibs.junit5Engine)
-                implementation(TestLibs.kotlinTestJunit5)
-                implementation(TestLibs.kotlinReflectJvm)
-                implementation(TestLibs.junit5)
-                implementation(TestLibs.junit5Param)
+                runtimeOnly(testDeps.junit5.engine)
+                implementation(testDeps.kotlin.test.junit5)
+                implementation(testDeps.kotlin.reflect.jvm)
+                implementation(testDeps.junit5.api)
+                implementation(testDeps.junit5.params)
             }
         }
 
@@ -78,11 +78,11 @@ kotlin {
 
         val androidTest by getting {
             dependencies {
-                runtimeOnly(TestLibs.junit5Engine)
-                implementation(TestLibs.kotlinTestJunit5)
-                implementation(TestLibs.kotlinReflectJvm)
-                implementation(TestLibs.junit5)
-                implementation(TestLibs.junit5Param)
+                runtimeOnly(testDeps.junit5.engine)
+                implementation(testDeps.kotlin.test.junit5)
+                implementation(testDeps.kotlin.reflect.jvm)
+                implementation(testDeps.junit5.api)
+                implementation(testDeps.junit5.params)
             }
         }
         val androidAndroidTestRelease by getting
