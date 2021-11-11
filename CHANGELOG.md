@@ -10,6 +10,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Fixed
 - Fix java compatibility declaration
 
+### Deprecated
+HotInvocation feature be removed in version 0.9.0. Please migrate to KeyedSingleSharedFlowContext
+
 ## [0.8.0] - 2021-11-06
 
 ### Changed
