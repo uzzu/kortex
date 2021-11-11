@@ -1,6 +1,5 @@
 import com.google.common.base.CaseFormat
 import org.jetbrains.dokka.gradle.DokkaTask
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
     id(pluginDeps.plugins.android.library.get().pluginId)
@@ -41,9 +40,27 @@ android {
 }
 
 kotlin {
-    jvm()
+    jvm {
+        compilations.all {
+            kotlinOptions {
+                freeCompilerArgs = listOf(
+                    "-Xjsr305=strict",
+                )
+                jvmTarget = JavaVersion.VERSION_11.toString()
+            }
+        }
+    }
+
     android {
         publishAllLibraryVariants()
+        compilations.all {
+            kotlinOptions {
+                freeCompilerArgs = listOf(
+                    "-Xjsr305=strict",
+                )
+                jvmTarget = JavaVersion.VERSION_1_8.toString()
+            }
+        }
     }
 
     sourceSets {
@@ -105,14 +122,7 @@ tasks {
     named<Test>("jvmTest") {
         useJUnitPlatform()
     }
-    withType<KotlinCompile> {
-        kotlinOptions {
-            jvmTarget = JavaVersion.VERSION_1_8.toString()
-            freeCompilerArgs = listOf(
-                "-Xjsr305=strict",
-            )
-        }
-    }
+
     val dokkaJavadoc = getByName("dokkaJavadoc", DokkaTask::class)
     dokkaJar = register("dokkaJar", Jar::class) {
         archiveClassifier.set("javadoc")
