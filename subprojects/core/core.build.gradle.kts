@@ -1,11 +1,10 @@
 import com.google.common.base.CaseFormat
 import org.jetbrains.dokka.gradle.DokkaTask
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    id("com.android.library")
-    kotlin("multiplatform")
-    id("org.jetbrains.dokka")
+    id(pluginDeps.plugins.android.library.get().pluginId)
+    id(pluginDeps.plugins.kotlin.multiplatform.get().pluginId)
+    id(pluginDeps.plugins.dokka.get().pluginId)
     `maven-publish`
     signing
 }
@@ -24,6 +23,11 @@ android {
         unitTests.isReturnDefaultValues = true
     }
 
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
+    }
+
     sourceSets {
         getByName("main") {
             manifest.srcFile("src/androidMain/AndroidManifest.xml")
@@ -36,23 +40,41 @@ android {
 }
 
 kotlin {
-    jvm()
+    jvm {
+        compilations.all {
+            kotlinOptions {
+                freeCompilerArgs = listOf(
+                    "-Xjsr305=strict",
+                )
+                jvmTarget = JavaVersion.VERSION_11.toString()
+            }
+        }
+    }
+
     android {
         publishAllLibraryVariants()
+        compilations.all {
+            kotlinOptions {
+                freeCompilerArgs = listOf(
+                    "-Xjsr305=strict",
+                )
+                jvmTarget = JavaVersion.VERSION_1_8.toString()
+            }
+        }
     }
 
     sourceSets {
         val commonMain by getting {
             dependencies {
-                implementation(Libs.coroutinesCore)
+                implementation(deps.kotlinx.coroutines.core)
             }
         }
 
         val commonTest by getting {
             dependencies {
-                implementation(TestLibs.kotlinTestCommon)
-                implementation(TestLibs.kotlinTestAnnotationsCommon)
-                implementation(TestLibs.assertk)
+                implementation(testDeps.kotlin.test.common)
+                implementation(testDeps.kotlin.test.annotation.common)
+                implementation(testDeps.assertk)
             }
         }
 
@@ -63,11 +85,11 @@ kotlin {
 
         val jvmTest by getting {
             dependencies {
-                runtimeOnly(TestLibs.junit5Engine)
-                implementation(TestLibs.kotlinTestJunit5)
-                implementation(TestLibs.kotlinReflectJvm)
-                implementation(TestLibs.junit5)
-                implementation(TestLibs.junit5Param)
+                runtimeOnly(testDeps.junit5.engine)
+                implementation(testDeps.kotlin.test.junit5)
+                implementation(testDeps.kotlin.reflect.jvm)
+                implementation(testDeps.junit5.api)
+                implementation(testDeps.junit5.params)
             }
         }
 
@@ -76,18 +98,18 @@ kotlin {
             }
         }
 
-        val androidAndroidTestRelease by getting
         val androidTest by getting {
             dependencies {
-                dependsOn(androidAndroidTestRelease)
-
-                runtimeOnly(TestLibs.junit5Engine)
-                implementation(TestLibs.kotlinTestJunit5)
-                implementation(TestLibs.kotlinReflectJvm)
-                implementation(TestLibs.junit5)
-                implementation(TestLibs.junit5Param)
+                runtimeOnly(testDeps.junit5.engine)
+                implementation(testDeps.kotlin.test.junit5)
+                implementation(testDeps.kotlin.reflect.jvm)
+                implementation(testDeps.junit5.api)
+                implementation(testDeps.junit5.params)
             }
         }
+        val androidAndroidTestRelease by getting
+
+        androidTest.dependsOn(androidAndroidTestRelease)
 
         all {
             languageSettings.optIn("kotlin.RequiresOptIn")
@@ -100,14 +122,7 @@ tasks {
     named<Test>("jvmTest") {
         useJUnitPlatform()
     }
-    withType<KotlinCompile> {
-        kotlinOptions {
-            jvmTarget = JavaVersion.VERSION_1_8.toString()
-            freeCompilerArgs = listOf(
-                "-Xjsr305=strict",
-            )
-        }
-    }
+
     val dokkaJavadoc = getByName("dokkaJavadoc", DokkaTask::class)
     dokkaJar = register("dokkaJar", Jar::class) {
         archiveClassifier.set("javadoc")
