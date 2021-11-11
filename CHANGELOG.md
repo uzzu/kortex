@@ -5,6 +5,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.8.1] - 2021-11-12
+
+### Fixed
+- Fix java compatibility declaration
+
 ## [0.8.0] - 2021-11-06
 
 ### Changed
