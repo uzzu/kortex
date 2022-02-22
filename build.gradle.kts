@@ -1,15 +1,15 @@
 buildscript {
     dependencies {
-        classpath(legacyPluginDeps.kotlin)
-        classpath(legacyPluginDeps.android)
+        classpath(legacyPluginLibs.kotlin)
+        classpath(legacyPluginLibs.android)
     }
 }
 
 plugins {
     base
-    alias(pluginDeps.plugins.dotenv)
-    alias(pluginDeps.plugins.dokka) apply false
-    alias(pluginDeps.plugins.ktlint)
+    alias(pluginLibs.plugins.dotenv)
+    alias(pluginLibs.plugins.dokka) apply false
+    alias(pluginLibs.plugins.ktlint)
 }
 
 allprojects {
