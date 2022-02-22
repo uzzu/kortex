@@ -26,31 +26,31 @@ dependencyResolutionManagement {
         val ktlint = "10.2.0"
 
         create("legacyPluginDeps") {
-            alias("kotlin").to("org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin")
-            alias("android").to("com.android.tools.build:gradle:$androidGradlePlugin")
+            library("kotlin", "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin")
+            library("android", "com.android.tools.build:gradle:$androidGradlePlugin")
         }
 
         create("pluginDeps") {
-            alias("dotenv").toPluginId("co.uzzu.dotenv.gradle").version(dotenv)
-            alias("kotlin-multiplatform").toPluginId("org.jetbrains.kotlin.multiplatform").version(kotlin)
-            alias("android-library").toPluginId("com.android.library").version(androidGradlePlugin)
-            alias("ktlint").toPluginId("org.jlleitschuh.gradle.ktlint").version(ktlint)
-            alias("dokka").toPluginId("org.jetbrains.dokka").version(kotlin)
+            plugin("dotenv", "co.uzzu.dotenv.gradle").version(dotenv)
+            plugin("kotlin-multiplatform", "org.jetbrains.kotlin.multiplatform").version(kotlin)
+            plugin("android-library", "com.android.library").version(androidGradlePlugin)
+            plugin("ktlint", "org.jlleitschuh.gradle.ktlint").version(ktlint)
+            plugin("dokka", "org.jetbrains.dokka").version(kotlin)
         }
 
         create("deps") {
-            alias("kotlinx-coroutines-core").to("org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlinxCoroutines")
+            library("kotlinx-coroutines-core", "org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlinxCoroutines")
         }
 
         create("testDeps") {
-            alias("kotlin-test-common").to("org.jetbrains.kotlin:kotlin-test-common:$kotlin")
-            alias("kotlin-test-annotation-common").to("org.jetbrains.kotlin:kotlin-test-annotations-common:$kotlin")
-            alias("kotlin-test-junit5").to("org.jetbrains.kotlin:kotlin-test-junit5:$kotlin")
-            alias("junit5-api").to("org.junit.jupiter:junit-jupiter-api:$junit5")
-            alias("junit5-engine").to("org.junit.jupiter:junit-jupiter-engine:$junit5")
-            alias("junit5-params").to("org.junit.jupiter:junit-jupiter-params:$junit5")
-            alias("kotlin-reflect-jvm").to("org.jetbrains.kotlin:kotlin-reflect:$kotlin")
-            alias("assertk").to("com.willowtreeapps.assertk:assertk:$assertk")
+            library("kotlin-test-common", "org.jetbrains.kotlin:kotlin-test-common:$kotlin")
+            library("kotlin-test-annotation-common", "org.jetbrains.kotlin:kotlin-test-annotations-common:$kotlin")
+            library("kotlin-test-junit5", "org.jetbrains.kotlin:kotlin-test-junit5:$kotlin")
+            library("junit5-api", "org.junit.jupiter:junit-jupiter-api:$junit5")
+            library("junit5-engine", "org.junit.jupiter:junit-jupiter-engine:$junit5")
+            library("junit5-params", "org.junit.jupiter:junit-jupiter-params:$junit5")
+            library("kotlin-reflect-jvm", "org.jetbrains.kotlin:kotlin-reflect:$kotlin")
+            library("assertk", "com.willowtreeapps.assertk:assertk:$assertk")
         }
     }
 }
