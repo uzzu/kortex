@@ -5,6 +5,29 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [Unreleased] - xxxx-xx-xx
+
+### Added
+
+### Changed
+
+### Deprecated
+
+### Removed
+
+### Fixed
+
+### Security
+
+## [0.9.0] - 2022-02-22
+
+### Changed
+- Use Kotlin 1.6.10
+- Use kotlinx.coroutines 1.6.0
+
+### Removed
+- HotInvocation feature was removed. Please migrate to KeyedSingleSharedFlowContext
+
 ## [0.8.1] - 2021-11-12
 
 ### Fixed
