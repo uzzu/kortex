@@ -1,7 +1,5 @@
 @file:Suppress("UnstableApiUsage")
 
-enableFeaturePreview("VERSION_CATALOGS")
-
 pluginManagement {
     repositories {
         google()
@@ -17,20 +15,20 @@ dependencyResolutionManagement {
     }
 
     versionCatalogs {
-        val kotlin = "1.5.30"
-        val kotlinxCoroutines = "1.5.2"
+        val kotlin = "1.6.10"
+        val kotlinxCoroutines = "1.6.0"
         val junit5 = "5.6.2"
         val assertk = "0.25"
         val androidGradlePlugin = "7.0.3" // sdk version is defined in bulidSrc
         val dotenv = "1.2.0"
-        val ktlint = "10.2.0"
+        val ktlint = "10.2.1"
 
-        create("legacyPluginDeps") {
+        create("legacyPluginLibs") {
             library("kotlin", "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin")
             library("android", "com.android.tools.build:gradle:$androidGradlePlugin")
         }
 
-        create("pluginDeps") {
+        create("pluginLibs") {
             plugin("dotenv", "co.uzzu.dotenv.gradle").version(dotenv)
             plugin("kotlin-multiplatform", "org.jetbrains.kotlin.multiplatform").version(kotlin)
             plugin("android-library", "com.android.library").version(androidGradlePlugin)
@@ -38,11 +36,11 @@ dependencyResolutionManagement {
             plugin("dokka", "org.jetbrains.dokka").version(kotlin)
         }
 
-        create("deps") {
+        create("libs") {
             library("kotlinx-coroutines-core", "org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlinxCoroutines")
         }
 
-        create("testDeps") {
+        create("testLibs") {
             library("kotlin-test-common", "org.jetbrains.kotlin:kotlin-test-common:$kotlin")
             library("kotlin-test-annotation-common", "org.jetbrains.kotlin:kotlin-test-annotations-common:$kotlin")
             library("kotlin-test-junit5", "org.jetbrains.kotlin:kotlin-test-junit5:$kotlin")
