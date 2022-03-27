@@ -136,18 +136,6 @@ setProperty("archivesBaseName", publishingArtifactIdBase)
 
 afterEvaluate { // workaround for AGP to resolve android library artifactId correctly.
     publishing {
-        repositories {
-            maven {
-                url = env.PUBLISH_PRODUCTION.orNull()
-                    ?.run { uri("https://oss.sonatype.org/service/local/staging/deploy/maven2/") }
-                    ?: uri("https://oss.sonatype.org/content/repositories/snapshots/")
-                credentials {
-                    username = env.OSSRH_USERNAME.orElse("")
-                    password = env.OSSRH_PASSWORD.orElse("")
-                }
-            }
-        }
-
         publications.withType<MavenPublication>().all {
             val publishingArtifactId = when (name) {
                 "metadata" -> {
