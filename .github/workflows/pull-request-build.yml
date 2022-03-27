@@ -17,6 +17,7 @@ jobs:
         run: |
           echo 'OSSRH_USERNAME=${{ secrets.OSSRH_USERNAME }}' >> $GITHUB_ENV
           echo 'OSSRH_PASSWORD=${{ secrets.OSSRH_PASSWORD }}' >> $GITHUB_ENV
+          echo 'OSSRH_STAGING_PROFILE_ID=${{ secrets.OSSRH_STAGING_PROFILE_ID }}' >> $GITHUB_ENV
           echo 'SIGNING_KEYID=${{ secrets.SIGNING_KEYID }}' >> $GITHUB_ENV
           echo 'SIGNING_PASSWORD=${{ secrets.SIGNING_PASSWORD }}' >> $GITHUB_ENV
           echo 'SIGNING_KEY<<EOF' >> $GITHUB_ENV
