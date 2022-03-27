@@ -8,7 +8,7 @@ suspend inline fun <T> Mutex.withLockContext(owner: Any? = null, action: (MutexC
     var actionError: Throwable? = null
     val result = try {
         withLock(owner) { action(context) }
-    } catch(e: Throwable) {
+    } catch (e: Throwable) {
         actionError = e
         null
     } finally {
@@ -43,4 +43,3 @@ class MutexContextImpl : MutexContext {
         mutableDeferActions.add(action)
     }
 }
-
