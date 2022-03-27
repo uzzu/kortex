@@ -19,6 +19,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Security
 
+## [0.10.0] - 2022-03-28
+
+### Added
+- Deferred action after mutex unlocked, by using `MutexContext#defer`
+
+### Fixed
+- Android sdk version declaration is moved to settings.gradle.kts
+
 ## [0.9.0] - 2022-02-22
 
 ### Changed

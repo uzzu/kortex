@@ -23,6 +23,10 @@ dependencyResolutionManagement {
         val dotenv = "1.2.0"
         val ktlint = "10.2.1"
 
+        val androidCompileSdkVersion = 31
+        val androidMinSdkVersion = 16
+        val androidTargetSdkVersion = 31
+
         create("legacyPluginLibs") {
             library("kotlin", "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin")
             library("android", "com.android.tools.build:gradle:$androidGradlePlugin")
@@ -37,6 +41,10 @@ dependencyResolutionManagement {
         }
 
         create("libs") {
+            version("android-compilesdk", androidCompileSdkVersion.toString())
+            version("android-minsdk", androidMinSdkVersion.toString())
+            version("android-targetsdk", androidTargetSdkVersion.toString())
+
             library("kotlinx-coroutines-core", "org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlinxCoroutines")
         }
 
