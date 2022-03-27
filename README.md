@@ -11,23 +11,23 @@ Kotlin 1.6.+
 ## Setup
 
 ```kotlin
-implementation("co.uzzu.kortex:kortex:0.9.0")
+implementation("co.uzzu.kortex:kortex:0.10.0")
 ```
 
 or resolve manually without using gradle metadata
 
 ```kotlin
 // common project
-implementation("co.uzzu.kortex:kortex-common:0.9.0")
+implementation("co.uzzu.kortex:kortex-common:0.10.0")
 
 // jvm project
-implementation("co.uzzu.kortex:kortex-jvm:0.9.0")
+implementation("co.uzzu.kortex:kortex-jvm:0.10.0")
 
 // Android release project
-implementation("co.uzzu.kortex:kortex-android:0.9.0")
+implementation("co.uzzu.kortex:kortex-android:0.10.0")
 
 // Android debug project
-implementation("co.uzzu.kortex:kortex-android-debug:0.9.0")
+implementation("co.uzzu.kortex:kortex-android-debug:0.10.0")
 ```
 
 ## Features
@@ -41,6 +41,11 @@ implementation("co.uzzu.kortex:kortex-android-debug:0.9.0")
 It works like `publish().refcount()` in RxJava, and caches the Flow instance by key string, so you can use a hot-stream considering the change of arguments.
 
 [See more examples](https://github.com/uzzu/kortex/blob/main/subprojects/core/src/jvmTest/kotlin/co/uzzu/kortex/KeyedSingleSharedFlowJvmTest.kt)
+
+### Deferred action after mutex unlocked
+
+Deferred action after mutex unlocked, by using `MutexContext#defer` .
+[See more examples](https://github.com/uzzu/kortex/blob/main/subprojects/core/src/commonTest/kotlin/co/uzzu/kortex/MutexContextDeferTest.kt)
 
 ### (Deprecated since 0.6.0, deleted since 0.9.0) hot-invocation for suspending function
 
