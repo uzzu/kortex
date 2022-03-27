@@ -43,6 +43,7 @@ subprojects {
 nexusPublishing {
     repositories {
         sonatype {
+            stagingProfileId.set(env.OSSRH_STAGING_PROFILE_ID.orElse(""))
             username.set(env.OSSRH_USERNAME.orElse(""))
             password.set(env.OSSRH_PASSWORD.orElse(""))
         }
