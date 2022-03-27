@@ -10,11 +10,11 @@ plugins {
 }
 
 android {
-    compileSdk = AndroidSdk.compileSdkVersion
+    compileSdk = libs.versions.android.compilesdk.get().toInt()
 
     defaultConfig {
-        minSdk = AndroidSdk.minSdkVersion
-        targetSdk = AndroidSdk.targetSdkVersion
+        minSdk = libs.versions.android.minsdk.get().toInt()
+        targetSdk = libs.versions.android.targetsdk.get().toInt()
         consumerProguardFiles("proguard-rules.pro")
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
