@@ -49,6 +49,7 @@ dependencyResolutionManagement {
             library("junit5-params", "org.junit.jupiter:junit-jupiter-params:$junit5")
             library("kotlin-reflect-jvm", "org.jetbrains.kotlin:kotlin-reflect:$kotlin")
             library("assertk", "com.willowtreeapps.assertk:assertk:$assertk")
+            library("kotlinx-coroutines-test", "org.jetbrains.kotlinx:kotlinx-coroutines-test:$kotlinxCoroutines")
         }
     }
 }

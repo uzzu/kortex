@@ -75,6 +75,7 @@ kotlin {
                 implementation(testLibs.kotlin.test.common)
                 implementation(testLibs.kotlin.test.annotation.common)
                 implementation(testLibs.assertk)
+                implementation(testLibs.kotlinx.coroutines.test)
             }
         }
 
