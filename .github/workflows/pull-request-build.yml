@@ -28,7 +28,7 @@ jobs:
       - name: Gradle build
         run: |
           ./gradlew build
-      - name Gradle publish to nexus-snapshot
+      - name: Gradle publish to nexus-snapshot
         run: |
           ./gradlew publishToSonatype
       - name: Upload Build Report
