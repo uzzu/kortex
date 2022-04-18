@@ -15,9 +15,9 @@ dependencyResolutionManagement {
     }
 
     versionCatalogs {
-        val kotlin = "1.6.10"
-        val kotlinxCoroutines = "1.6.0"
-        val junit5 = "5.6.2"
+        val kotlin = "1.6.20"
+        val kotlinxCoroutines = "1.6.1"
+        val junit5 = "5.8.2"
         val assertk = "0.25"
         val androidGradlePlugin = "7.0.3" // sdk version is defined in bulidSrc
         val dotenv = "1.2.0"
