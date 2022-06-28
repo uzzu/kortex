@@ -8,20 +8,28 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ## [Unreleased] - xxxx-xx-xx
 
 ### Added
-- Deferred action after mutex unlocked, by using `MutexContext#defer`
 
 ### Changed
-- Use kotlin 1.6.20
-- Use kotlinx.coroutines to 1.6.1
 
 ### Deprecated
 
 ### Removed
 
 ### Fixed
-- Android sdk version declaration is moved to settings.gradle.kts
 
 ### Security
+
+## [0.10.0] - 2022-06-29
+
+### Added
+- Deferred action after mutex unlocked, by using `MutexContext#defer`
+
+### Changed
+- Use kotlin 1.6.20
+- Use kotlinx.coroutines to 1.6.1
+
+### Fixed
+- Android sdk version declaration is moved to settings.gradle.kts
 
 ## [0.9.0] - 2022-02-22
 
