@@ -8,6 +8,7 @@ buildscript {
 plugins {
     base
     alias(pluginLibs.plugins.dotenv)
+    alias(pluginLibs.plugins.gradle.nexus.publish)
     alias(pluginLibs.plugins.dokka) apply false
     alias(pluginLibs.plugins.ktlint)
 }
@@ -36,5 +37,20 @@ subprojects {
             reporter(org.jlleitschuh.gradle.ktlint.reporter.ReporterType.CHECKSTYLE)
         }
         ignoreFailures.set(true)
+    }
+}
+
+nexusPublishing {
+    repositories {
+        sonatype {
+            stagingProfileId.set(env.OSSRH_STAGING_PROFILE_ID.orElse(""))
+            username.set(env.OSSRH_USERNAME.orElse(""))
+            password.set(env.OSSRH_PASSWORD.orElse(""))
+        }
+    }
+    useStaging.set(!env.PUBLISH_PRODUCTION.isPresent)
+    transitionCheckOptions {
+        maxRetries.set(100)
+        delayBetween.set(java.time.Duration.ofSeconds(5))
     }
 }

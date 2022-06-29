@@ -21,6 +21,7 @@ dependencyResolutionManagement {
         val assertk = "0.25"
         val androidGradlePlugin = "7.0.3" // sdk version is defined in bulidSrc
         val dotenv = "1.2.0"
+        val gradleNexusPublish = "1.1.0"
         val ktlint = "10.2.1"
 
         val androidCompileSdkVersion = 31
@@ -34,6 +35,7 @@ dependencyResolutionManagement {
 
         create("pluginLibs") {
             plugin("dotenv", "co.uzzu.dotenv.gradle").version(dotenv)
+            plugin("gradle-nexus-publish", "io.github.gradle-nexus.publish-plugin").version(gradleNexusPublish)
             plugin("kotlin-multiplatform", "org.jetbrains.kotlin.multiplatform").version(kotlin)
             plugin("android-library", "com.android.library").version(androidGradlePlugin)
             plugin("ktlint", "org.jlleitschuh.gradle.ktlint").version(ktlint)
