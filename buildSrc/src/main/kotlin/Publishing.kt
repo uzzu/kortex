@@ -21,7 +21,7 @@ val Project.publishingArtifactIdBase: String
 
 fun Project.publishingArtifactVersion(isPublishProduction: Boolean): String =
     if (isPublishProduction) {
-        "$publishingArtifactVersion-SNAPSHOT"
+        publishingArtifactVersion
     } else {
         "$publishingArtifactVersion-SNAPSHOT"
     }

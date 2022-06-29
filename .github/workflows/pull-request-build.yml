@@ -34,7 +34,7 @@ jobs:
           ./gradlew publishToMavenLocal
       - name: Gradle publish to nexus-snapshot
         run: |
-          PUBLISH_PRODUCTION=1 ./gradlew publishToSonatype --stacktrace
+          ./gradlew publishToSonatype --stacktrace
       - name: Upload Build Report
         uses: actions/upload-artifact@v1
         if: always()

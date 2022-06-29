@@ -48,6 +48,7 @@ nexusPublishing {
             password.set(env.OSSRH_PASSWORD.orElse(""))
         }
     }
+    useStaging.set(!env.PUBLISH_PRODUCTION.isPresent)
     transitionCheckOptions {
         maxRetries.set(100)
         delayBetween.set(java.time.Duration.ofSeconds(5))
