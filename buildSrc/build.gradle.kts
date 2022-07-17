@@ -7,5 +7,5 @@ plugins {
 }
 
 dependencies {
-    api("com.google.guava:guava:28.2-jre")
+    api("com.google.guava:guava:31.1-jre")
 }
