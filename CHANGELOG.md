@@ -8,15 +8,23 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ## [Unreleased] - xxxx-xx-xx
 
 ### Added
+- Add `Flow<T>.shareSingleBy(context: CoroutineContext, key: String)` to replace `withSingleSharedFlow`
 
 ### Changed
+- Use kotlin 1.6.21
+- Use kotlinx.coroutines to 1.6.4
 
 ### Deprecated
+- `withSingleSharedFlow` is deprecated.
+  - Replace to use `Flow<T>.shareSingleBy` , or `block.asFlow().shareSingleBy`
 
 ### Removed
 
 ### Fixed
 - Use AGP 7.2.1
+- Improve KeyedSingleSharedFlowContext stability
+  - Decrease interval of internal sharing flow from 16ms to 1ms to improve sharing stability in edge case.
+  - Internal sharing flow now uses SupervisorJob.
 
 ### Security
 
