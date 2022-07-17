@@ -19,9 +19,9 @@ dependencyResolutionManagement {
         val kotlinxCoroutines = "1.6.1"
         val junit5 = "5.8.2"
         val assertk = "0.25"
-        val androidGradlePlugin = "7.0.3" // sdk version is defined in bulidSrc
-        val dotenv = "1.2.0"
-        val ktlint = "10.2.1"
+        val androidGradlePlugin = "7.2.1"
+        val dotenv = "2.0.0"
+        val ktlint = "10.3.0"
 
         val androidCompileSdkVersion = 31
         val androidMinSdkVersion = 16
