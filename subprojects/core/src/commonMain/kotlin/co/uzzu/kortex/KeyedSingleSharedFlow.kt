@@ -2,7 +2,7 @@ package co.uzzu.kortex
 
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.FlowPreview
-import kotlinx.coroutines.Job
+import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
@@ -45,27 +45,58 @@ fun keyedSingleSharedFlow(
 
 /**
  * Hot-invoke specified suspending function by unique key
+ * @param context [CoroutineContext] to execute sharing flow
  * @param key unique key to use hot-invoke a specified suspending function
  * @param block suspending function to invoke
  * @return same value if specified suspend function was reused
  * @throws IllegalArgumentException if coroutineContext[KeyedSingleSharedFlowContext] was not set.
  */
+@OptIn(FlowPreview::class)
 @Suppress("SuspendFunctionOnCoroutineScope")
-suspend fun <T> CoroutineScope.withSingleShared(context: CoroutineContext, key: String, block: suspend () -> T): T =
-    withSingleSharedFlow(context, key, block).single()
+suspend fun <T> withSingleShared(context: CoroutineContext, key: String, block: suspend () -> T): T =
+    singleSharedFlow(context, key, block.asFlow()).single()
 
 /**
  * Hot-invoke specified suspending function with convert to flow by unique key
+ * @param context [CoroutineContext] to execute sharing flow
  * @param key unique key to use hot-invoke a specified flow
  * @param block suspending function to invoke
  * @return same flow if specified suspend function was reused
  * @throws IllegalArgumentException if coroutineContext[[KeyedSingleSharedFlowContext] was not set.
  */
-@Suppress("SuspendFunctionOnCoroutineScope")
+@Deprecated(
+    "Use Flow<T>.singleShareIn",
+    ReplaceWith(
+        "block.asFlow().singleShareBy(context, key)",
+        "kotlinx.coroutines.flow.asFlow"
+    )
+)
 @OptIn(FlowPreview::class)
-suspend fun <T> CoroutineScope.withSingleSharedFlow(context: CoroutineContext, key: String, block: suspend () -> T): Flow<T> {
-    val singleSharedContext = requireNotNull(coroutineContext[KeyedSingleSharedFlowContext]) {
-        "Requires HotInvocation to call this function. Please add into your coroutineContext."
+suspend fun <T> withSingleSharedFlow(context: CoroutineContext, key: String, block: suspend () -> T): Flow<T> =
+    block.asFlow().shareSingleBy(context, key)
+
+/**
+ * Hot-invoke original flow by unique key
+ * @param context [CoroutineContext] to execute sharing flow
+ * @param key unique key to use hot-invoke a specified flow
+ * @return flow which emits result of original flow if running
+ * @throws IllegalArgumentException if coroutineContext[[KeyedSingleSharedFlowContext] was not set.
+ */
+suspend fun <T> Flow<T>.shareSingleBy(context: CoroutineContext, key: String): Flow<T> {
+    requireNotNull(context[KeyedSingleSharedFlowContext]) {
+        "Requires KeyedSingleSharedFlowContext to call this function. Please add into your coroutineContext."
+    }
+    return flow {
+        val cachedFlow = singleSharedFlow(context, key, this@shareSingleBy)
+        val result = cachedFlow.single()
+        emit(result)
+    }
+}
+
+@Suppress("SuspendFunctionOnCoroutineScope")
+private suspend fun <T> singleSharedFlow(context: CoroutineContext, key: String, flow: Flow<T>): Flow<T> {
+    val singleSharedContext = requireNotNull(context[KeyedSingleSharedFlowContext]) {
+        "Requires KeyedSingleSharedFlowContext to call this function. Please add into your coroutineContext."
     }
     val mutex = singleSharedContext.mutex
     val map = singleSharedContext.map
@@ -79,9 +110,7 @@ suspend fun <T> CoroutineScope.withSingleSharedFlow(context: CoroutineContext, k
         map.remove(key)
         @Suppress("unchecked_cast")
         val created = map.getOrPut(key) {
-            val flow = block.asFlow()
-            val container = KeyedSingleSharedFlowContainer(context, flow)
-            container.invokePreCompletion {
+            val container = KeyedSingleSharedFlowContainer(context, flow) {
                 mutex.withLock {
                     map.remove(key)
                 }
@@ -101,8 +130,9 @@ class KeyedSingleSharedFlowContainer<T>
 internal constructor(
     parentContext: CoroutineContext,
     flow: Flow<T>,
+    private val preCompletion: suspend () -> Unit,
 ) {
-    private val sharingScope: CoroutineScope = CoroutineScope(parentContext + Job())
+    private val sharingScope: CoroutineScope = CoroutineScope(parentContext + SupervisorJob())
     private val sharingFlow: Flow<T> = flow
         .onEach {
             resultMutex.withLock {
@@ -120,12 +150,13 @@ internal constructor(
         }
     private val runningMutex: Mutex = Mutex()
     private val resultMutex: Mutex = Mutex()
+    private val preCompletionMutex: Mutex = Mutex()
     private val refCountMutex: Mutex = Mutex()
-    private var preCompletion: (suspend () -> Unit)? = null
     private var unsafeReturnValue: T? = null
     private var unsafeError: Throwable? = null
     private var unsafeIsRunningFlow: Boolean = false
     private var unsafeIsCompleted: Boolean = false
+    private var unsafePreCompletionCalled: Boolean = false
     private var unsafeRefCount = 0
 
     fun openSubscription(): Flow<T> {
@@ -139,9 +170,15 @@ internal constructor(
                     unsafeIsCompleted = isCompleted
                     Triple(unsafeReturnValue, unsafeError, isCompleted)
                 }
-                if (isCompleted) {
-                    preCompletion?.invoke()
+                val preCompletion = preCompletionMutex.withLock {
+                    if (isCompleted && !unsafePreCompletionCalled) {
+                        unsafePreCompletionCalled = true
+                        this@KeyedSingleSharedFlowContainer.preCompletion
+                    } else {
+                        null
+                    }
                 }
+                preCompletion?.invoke()
 
                 if (error != null) {
                     throw error
@@ -150,7 +187,7 @@ internal constructor(
                     emit(returnValue)
                     break
                 }
-                delay(16)
+                delay(1)
             }
         }
             .onStart {
@@ -171,10 +208,6 @@ internal constructor(
 
     suspend fun isCompleted(): Boolean = resultMutex.withLock {
         unsafeIsCompleted
-    }
-
-    fun invokePreCompletion(block: suspend () -> Unit) {
-        preCompletion = block
     }
 
     private suspend fun ensureRunning() {
