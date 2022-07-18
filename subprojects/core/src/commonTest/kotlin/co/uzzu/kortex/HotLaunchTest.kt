@@ -44,7 +44,6 @@ class HotLaunchTest {
         val jobs = mutableListOf<Job>()
         val suspendFunction: suspend (Int) -> Unit = {
             count++
-            println(it)
             delay(10)
         }
 
@@ -70,7 +69,6 @@ class HotLaunchTest {
         val jobs = mutableListOf<Job>()
         val suspendFunction: suspend (Int) -> Unit = {
             count++
-            println(it)
             delay(10)
         }
 
