@@ -5,7 +5,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
-## [Unreleased] - xxxx-xx-xx
+## [0.11.0] - 2022-07-30
 
 ### Added
 - Add `Flow<T>.shareSingleBy(context: CoroutineContext, key: String)` to replace `withSingleSharedFlow`
