@@ -34,18 +34,18 @@ implementation("co.uzzu.kortex:kortex-android-debug:0.11.0")
 
 ### hot-launching
 
-[See more examples](subprojects/core/src/jvmTest/kotlin/co/uzzu/kortex/HotLaunchJvmTest.kt)
+[See more examples](subprojects/core/src/commonTest/kotlin/co/uzzu/kortex/HotLaunchTest.kt)
 
 ### Pseudo hot-stream Flow with key cached
 
 It works like `publish().refcount()` in RxJava, and caches the Flow instance by key string, so you can use a hot-stream considering the change of arguments.
 
-[See more examples](https://github.com/uzzu/kortex/blob/main/subprojects/core/src/jvmTest/kotlin/co/uzzu/kortex/KeyedSingleSharedFlowJvmTest.kt)
+[See more examples](subprojects/core/src/commonTest/kotlin/co/uzzu/kortex/KeyedSingleSharedFlowTest.kt)
 
 ### Deferred action after mutex unlocked
 
 Deferred action after mutex unlocked, by using `MutexContext#defer` .
-[See more examples](https://github.com/uzzu/kortex/blob/main/subprojects/core/src/commonTest/kotlin/co/uzzu/kortex/MutexContextDeferTest.kt)
+[See more examples](subprojects/core/src/commonTest/kotlin/co/uzzu/kortex/MutexContextDeferTest.kt)
 
 ### (Deprecated since 0.6.0, deleted since 0.9.0) hot-invocation for suspending function
 
