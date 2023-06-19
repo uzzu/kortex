@@ -19,7 +19,7 @@ dependencyResolutionManagement {
         val kotlinxCoroutines = "1.6.4"
         val junit5 = "5.9.1"
         val assertk = "0.25"
-        val androidGradlePlugin = "7.2.2"
+        val androidGradlePlugin = "7.4.2"
         val dotenv = "2.0.0"
         val ktlint = "10.3.0"
 
