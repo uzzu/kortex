@@ -15,7 +15,7 @@ dependencyResolutionManagement {
     }
 
     versionCatalogs {
-        val kotlin = "1.6.21"
+        val kotlin = "1.9.25"
         val kotlinxCoroutines = "1.6.4"
         val junit5 = "5.9.1"
         val assertk = "0.25"
