@@ -16,7 +16,7 @@ dependencyResolutionManagement {
 
     versionCatalogs {
         val kotlin = "1.6.21"
-        val kotlinxCoroutines = "1.6.4"
+        val kotlinxCoroutines = "1.9.0"
         val junit5 = "5.9.1"
         val assertk = "0.25"
         val androidGradlePlugin = "7.2.2"
