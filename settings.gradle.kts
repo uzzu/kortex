@@ -20,7 +20,7 @@ dependencyResolutionManagement {
         val junit5 = "5.9.1"
         val assertk = "0.25"
         val androidGradlePlugin = "7.2.2"
-        val dotenv = "2.0.0"
+        val dotenv = "2.1.0"
         val ktlint = "10.3.0"
 
         val androidCompileSdkVersion = 31
